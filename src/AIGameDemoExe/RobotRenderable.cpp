@@ -1,0 +1,105 @@
+#include "RobotRenderable.h"
+#include "RobotEntity.h"
+#include "HippoD3d9Device.h"
+#include "Globals.h"
+#include "XModelHelpFun.h"
+#include "TankGameRender.h"
+RobotRenderable::RobotRenderable(GameEntity* parent):
+GameRenderable(parent)
+{
+	m_d3d_texture=0;
+	m_local_matrix._11 = 0.1f;
+	m_local_matrix._22 = 0.1f;
+	m_local_matrix._33 = 0.1f;
+
+
+	BuildRenderable(parent);
+}
+RobotRenderable::~RobotRenderable()
+{
+	if (m_arrow_renderable)
+		delete m_arrow_renderable;
+	m_arrow_renderable = 0;
+
+	m_d3d_texture->Release();
+}
+
+void RobotRenderable::BuildRenderable(GameEntity* parent)
+{
+	auto d3d9device = Globals::GetDevice()->GetDeviceD3D9();
+	FillRenderableMeshWithXFile("../media/btankcruiser_tex.x", d3d9device, &m_pD3dxMesh,0);
+
+	m_fxhandle=Globals::GetFxManager()->RequireEffectFormFile("../media/fx/default_fx.fx");
+	m_fxhandle->SetTechnique("RenderSceneWithTexture1Light");
+
+	HRESULT v=D3DXCreateTextureFromFileA(d3d9device,"../media/btankcruiser_tex.png",&m_d3d_texture);
+
+	m_arrow_renderable = new GameRenderable(parent);
+	FillRenderableMeshWithXFile("../media/arrow.x", d3d9device,&m_arrow_renderable->m_pD3dxMesh,&(m_arrow_renderable->m_mats));
+	//箭头需要显示在机器人头顶上
+	D3DXVECTOR3 offset(0, 2, 0);
+	D3DXVECTOR3 rot_center(0.5, 0.5, 0.5);
+	D3DXVECTOR3 rot_aix(0, 1, 0);
+	D3DXQUATERNION quat;
+	D3DXQuaternionRotationAxis(&quat, &rot_aix, D3DXToRadian(180));
+	D3DXMatrixTransformation(&m_arrow_renderable->m_local_matrix,
+		0, 0, 0, //scale
+		0, &quat,	 //rotation
+		&offset);//trans
+	ComputeBoundingSphere(m_pD3dxMesh, &m_bs);
+}
+
+
+void RobotRenderable::Render(HippoD3d9Device* pdevice, unsigned int escapeTime)
+{
+	CalcPos(escapeTime);
+
+	//world matrix
+	HRESULT v=m_fxhandle->SetMatrix("g_mWorld", &m_RobotRenderableMatrix);
+
+	//wvp matrix
+	auto proj = Globals::GetRender()->GetProjMatrix();
+	auto view = Globals::GetRender()->GetViewMatrix();
+	D3DXMATRIX vp = (*view)*(*proj);
+	v = m_fxhandle->SetMatrix("g_mViewProjection", &vp);
+
+	//material
+	D3DXCOLOR vWhite = D3DXCOLOR(1, 1, 1, 1);
+	v = m_fxhandle->SetValue("g_MaterialDiffuseColor", &vWhite, sizeof(D3DXCOLOR));
+
+	//texture
+	v = m_fxhandle->SetTexture("g_MeshTexture", m_d3d_texture);
+
+	UINT iPass, totalPasses;
+	m_fxhandle->Begin(&totalPasses, 0);
+	//d3d9device->SetTransform(D3DTS_WORLD, &tmpMatrix);
+
+	for (iPass = 0; iPass < totalPasses; iPass++)
+	{
+		m_fxhandle->BeginPass(iPass);
+		m_pD3dxMesh->DrawSubset(0);
+		m_arrow_renderable->Render(pdevice,escapeTime);
+		m_fxhandle->EndPass();
+	}
+
+	m_fxhandle->End();
+
+
+	
+}
+
+void RobotRenderable::CalcPos(unsigned int escapet)
+{
+	D3DXMATRIX* m1=m_parent->GetWorldTransform();
+	D3DXMatrixMultiply(&m_RobotRenderableMatrix, &m_local_matrix, m_parent->GetWorldTransform());
+
+	//m_RobotRenderableMatrix = *m1;
+	DWORD t=timeGetTime();
+	m_RobotRenderableMatrix._42 += 1.6f*sin(0.1f*D3DXToRadian(t));
+
+}
+
+void RobotRenderable::LoadFromFile()
+{
+
+}

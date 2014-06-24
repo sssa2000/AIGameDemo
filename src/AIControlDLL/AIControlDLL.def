@@ -1,0 +1,3 @@
+EXPORTS
+	CreateAIControl		@1
+	DeleteAIControl		@2

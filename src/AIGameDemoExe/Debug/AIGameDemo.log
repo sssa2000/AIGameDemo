@@ -1,0 +1,59 @@
+﻿生成启动时间为 2014/6/24 18:46:51。
+     1>项目“E:\AIGameDemo\src\AIGameDemoExe\AIGameDemo.vcxproj”在节点 2 上(build 个目标)。
+     1>C:\Program Files\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(299,5): warning MSB8004: Output 目录未以斜杠结尾。此生成实例将添加斜杠，因为必须有这个斜杠才能正确计算 Output 目录。
+     1>InitializeBuildStatus:
+         正在创建“Debug\AIGameDemo.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+       ClCompile:
+         C:\Program Files\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Id3d /IUtiltiy /IHippoAppBase /Iidmath /I./ /I../CommonInterface /I./thirdlib /I./camera /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _CRT_SECURE_NO_WARNINGS /D _DEBUG /D _CONSOLE /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Camera\ModelViewCamera.cpp
+         ModelViewCamera.cpp
+       ManifestResourceCompile:
+         所有输出均为最新。
+       Link:
+         C:\Program Files\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"../../bin\AIGameDemo.exe" /INCREMENTAL /NOLOGO /LIBPATH:./thirdlib d3d9.lib d3dx9d.lib FreeImage.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\AIGameDemo.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"E:\AIGameDemo\bin\AIGameDemo.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"../../bin\AIGameDemo.lib" /MACHINE:X86 Debug\AIGameDemo.exe.embed.manifest.res
+         Debug\BoundingVol.obj
+         Debug\FollowCamera.obj
+         Debug\FPSCamera.obj
+         Debug\ModelViewCamera.obj
+         Debug\HippoD3d9Device.obj
+         Debug\HippoD3DxModel.obj
+         Debug\EntityFactory.obj
+         Debug\FxEffectManager.obj
+         Debug\GameEntity.obj
+         Debug\GameKeyBoardControl.obj
+         Debug\GameRenderable.obj
+         Debug\Globals.obj
+         Debug\HippoAppBase.obj
+         Debug\HippoDxAppBase.obj
+         Debug\HippoWindow.obj
+         Debug\Win32MsgUtil.obj
+         Debug\main.obj
+         Debug\RobotEntity.obj
+         Debug\RobotProxyImpl.obj
+         Debug\RobotRenderable.obj
+         Debug\SkyEntity.obj
+         Debug\stdafx.obj
+         Debug\TankGameRender.obj
+         Debug\TankGameWorldImpl.obj
+         Debug\TerrainEntity.obj
+         Debug\TowerEntity.obj
+         Debug\TowerProxyImpl.obj
+         Debug\TowerRenderable.obj
+         Debug\ErrReport.obj
+         Debug\HippoFilePath.obj
+         Debug\Timer.obj
+         Debug\WorldSerializer.obj
+         Debug\XModelHelpFun.obj
+       Manifest:
+         C:\Program Files\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"Debug\AIGameDemo.exe.embed.manifest" /manifest Debug\AIGameDemo.exe.intermediate.manifest
+         所有输出均为最新。
+       LinkEmbedManifest:
+         所有输出均为最新。
+         AIGameDemo.vcxproj -> E:\AIGameDemo\src\AIGameDemoExe\../../bin\AIGameDemo.exe
+       FinalizeBuildStatus:
+         正在删除文件“Debug\AIGameDemo.unsuccessfulbuild”。
+         正在对“Debug\AIGameDemo.lastbuildstate”执行 Touch 任务。
+     1>已完成生成项目“E:\AIGameDemo\src\AIGameDemoExe\AIGameDemo.vcxproj”(build 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:02.58

@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{00AB750B-5FE9-44A9-831B-6B88FBAD35C5}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>AIGameDemo</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>../../bin</OutDir>
+    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;e:\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\lib\x86;e:\Microsoft DirectX SDK %28June 2010%29\lib\x86;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>../../bin</OutDir>
+    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;e:\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\lib\x86;e:\Microsoft DirectX SDK %28June 2010%29\lib\x86;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>d3d;Utiltiy;HippoAppBase;idmath;./;../CommonInterface;./thirdlib;./camera</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>./thirdlib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>d3d9.lib;d3dx9d.lib;FreeImage.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>d3d;Utiltiy;HippoAppBase;idmath;./;../CommonInterface;./thirdlib;./camera</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>./thirdlib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>d3d9.lib;d3dx9d.lib;FreeImage.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\CommonInterface\IGameControl.h" />
+    <ClInclude Include="..\CommonInterface\IGameWorld.h" />
+    <ClInclude Include="..\CommonInterface\IRobotProxy.h" />
+    <ClInclude Include="..\CommonInterface\ITowerProxy.h" />
+    <ClInclude Include="BoundingVol.h" />
+    <ClInclude Include="Camera\CameraBase.h" />
+    <ClInclude Include="Camera\FollowCamera.h" />
+    <ClInclude Include="Camera\FPSCamera.h" />
+    <ClInclude Include="Camera\ModelViewCamera.h" />
+    <ClInclude Include="D3D\HippoD3d9Device.h" />
+    <ClInclude Include="D3D\HippoD3DxModel.h" />
+    <ClInclude Include="EntityFactory.h" />
+    <ClInclude Include="FxEffectManager.h" />
+    <ClInclude Include="GameEntity.h" />
+    <ClInclude Include="GameKeyBoardControl.h" />
+    <ClInclude Include="GameRenderable.h" />
+    <ClInclude Include="Globals.h" />
+    <ClInclude Include="HippoAppBase\HippoAppBase.h" />
+    <ClInclude Include="HippoAppBase\HippoDxAppBase.h" />
+    <ClInclude Include="HippoAppBase\HippoWindow.h" />
+    <ClInclude Include="HippoAppBase\Win32MsgUtil.h" />
+    <ClInclude Include="IGameWordContex.h" />
+    <ClInclude Include="RobotEntity.h" />
+    <ClInclude Include="RobotProxyImpl.h" />
+    <ClInclude Include="RobotRenderable.h" />
+    <ClInclude Include="SkyEntity.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="TankGameRender.h" />
+    <ClInclude Include="TankGameWorldImpl.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="TerrainEntity.h" />
+    <ClInclude Include="TowerEntity.h" />
+    <ClInclude Include="TowerProxyImpl.h" />
+    <ClInclude Include="TowerRenderable.h" />
+    <ClInclude Include="Utiltiy\ErrReport.h" />
+    <ClInclude Include="Utiltiy\HippoFilePath.h" />
+    <ClInclude Include="Utiltiy\ScopeGuard.h" />
+    <ClInclude Include="Utiltiy\Timer.h" />
+    <ClInclude Include="WorldSerializer.h" />
+    <ClInclude Include="XModelHelpFun.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BoundingVol.cpp" />
+    <ClCompile Include="Camera\FollowCamera.cpp" />
+    <ClCompile Include="Camera\FPSCamera.cpp" />
+    <ClCompile Include="Camera\ModelViewCamera.cpp" />
+    <ClCompile Include="D3D\HippoD3d9Device.cpp" />
+    <ClCompile Include="D3D\HippoD3DxModel.cpp" />
+    <ClCompile Include="EntityFactory.cpp" />
+    <ClCompile Include="FxEffectManager.cpp" />
+    <ClCompile Include="GameEntity.cpp" />
+    <ClCompile Include="GameKeyBoardControl.cpp" />
+    <ClCompile Include="GameRenderable.cpp" />
+    <ClCompile Include="Globals.cpp" />
+    <ClCompile Include="HippoAppBase\HippoAppBase.cpp" />
+    <ClCompile Include="HippoAppBase\HippoDxAppBase.cpp" />
+    <ClCompile Include="HippoAppBase\HippoWindow.cpp" />
+    <ClCompile Include="HippoAppBase\Win32MsgUtil.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="RobotEntity.cpp" />
+    <ClCompile Include="RobotProxyImpl.cpp" />
+    <ClCompile Include="RobotRenderable.cpp" />
+    <ClCompile Include="SkyEntity.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="TankGameRender.cpp" />
+    <ClCompile Include="TankGameWorldImpl.cpp" />
+    <ClCompile Include="TerrainEntity.cpp" />
+    <ClCompile Include="TowerEntity.cpp" />
+    <ClCompile Include="TowerProxyImpl.cpp" />
+    <ClCompile Include="TowerRenderable.cpp" />
+    <ClCompile Include="Utiltiy\ErrReport.cpp" />
+    <ClCompile Include="Utiltiy\HippoFilePath.cpp" />
+    <ClCompile Include="Utiltiy\Timer.cpp" />
+    <ClCompile Include="WorldSerializer.cpp" />
+    <ClCompile Include="XModelHelpFun.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

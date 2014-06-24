@@ -1,0 +1,272 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="vc_generate">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="vc_generate\资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Game\FrameWork">
+      <UniqueIdentifier>{619e3684-e688-459f-b55b-06ad0cf302f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\FrameWork\app">
+      <UniqueIdentifier>{704f270f-964f-49b3-9d9e-09b934c7e804}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\FrameWork\camera">
+      <UniqueIdentifier>{dba6b149-49c9-43f7-bde0-1a45c30b369c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\FrameWork\d3d">
+      <UniqueIdentifier>{c7ad2750-5570-4eff-b92c-7c5d3850cbcf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\FrameWork\utility">
+      <UniqueIdentifier>{a9a1cb6e-a6ba-44a5-88e9-37606ccb208d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\CommonInterface">
+      <UniqueIdentifier>{5bb203c2-e37d-47ff-8dd7-5b3ba12cd18c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scene">
+      <UniqueIdentifier>{636ae2e9-0242-4997-bdd6-1be4cbe6d6e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scene\Player">
+      <UniqueIdentifier>{daff4220-8775-4fdf-af48-35dec17293cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scene\Tower">
+      <UniqueIdentifier>{3769239f-3118-4ab9-8563-f03eed93613f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>vc_generate</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>vc_generate</Filter>
+    </ClInclude>
+    <ClInclude Include="HippoAppBase\HippoAppBase.h">
+      <Filter>Game\FrameWork\app</Filter>
+    </ClInclude>
+    <ClInclude Include="HippoAppBase\HippoDxAppBase.h">
+      <Filter>Game\FrameWork\app</Filter>
+    </ClInclude>
+    <ClInclude Include="HippoAppBase\HippoWindow.h">
+      <Filter>Game\FrameWork\app</Filter>
+    </ClInclude>
+    <ClInclude Include="HippoAppBase\Win32MsgUtil.h">
+      <Filter>Game\FrameWork\app</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera\FPSCamera.h">
+      <Filter>Game\FrameWork\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="D3D\HippoD3d9Device.h">
+      <Filter>Game\FrameWork\d3d</Filter>
+    </ClInclude>
+    <ClInclude Include="D3D\HippoD3DxModel.h">
+      <Filter>Game\FrameWork\d3d</Filter>
+    </ClInclude>
+    <ClInclude Include="Utiltiy\ErrReport.h">
+      <Filter>Game\FrameWork\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Utiltiy\HippoFilePath.h">
+      <Filter>Game\FrameWork\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Utiltiy\Timer.h">
+      <Filter>Game\FrameWork\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CommonInterface\IGameControl.h">
+      <Filter>Game\CommonInterface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CommonInterface\IGameWorld.h">
+      <Filter>Game\CommonInterface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CommonInterface\IRobotProxy.h">
+      <Filter>Game\CommonInterface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CommonInterface\ITowerProxy.h">
+      <Filter>Game\CommonInterface</Filter>
+    </ClInclude>
+    <ClInclude Include="Globals.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="TankGameRender.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="XModelHelpFun.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="BoundingVol.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityFactory.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="FxEffectManager.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="GameKeyBoardControl.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyEntity.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainEntity.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEntity.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="RobotRenderable.h">
+      <Filter>Game\Scene\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="RobotEntity.h">
+      <Filter>Game\Scene\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="RobotProxyImpl.h">
+      <Filter>Game\Scene\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="TowerRenderable.h">
+      <Filter>Game\Scene\Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="TowerEntity.h">
+      <Filter>Game\Scene\Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="TowerProxyImpl.h">
+      <Filter>Game\Scene\Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldSerializer.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="GameRenderable.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="TankGameWorldImpl.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="IGameWordContex.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Utiltiy\ScopeGuard.h">
+      <Filter>Game\FrameWork\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera\ModelViewCamera.h">
+      <Filter>Game\FrameWork\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera\CameraBase.h">
+      <Filter>Game\FrameWork\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera\FollowCamera.h">
+      <Filter>Game\FrameWork\camera</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>vc_generate</Filter>
+    </ClCompile>
+    <ClCompile Include="HippoAppBase\HippoAppBase.cpp">
+      <Filter>Game\FrameWork\app</Filter>
+    </ClCompile>
+    <ClCompile Include="HippoAppBase\HippoDxAppBase.cpp">
+      <Filter>Game\FrameWork\app</Filter>
+    </ClCompile>
+    <ClCompile Include="HippoAppBase\HippoWindow.cpp">
+      <Filter>Game\FrameWork\app</Filter>
+    </ClCompile>
+    <ClCompile Include="HippoAppBase\Win32MsgUtil.cpp">
+      <Filter>Game\FrameWork\app</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera\FPSCamera.cpp">
+      <Filter>Game\FrameWork\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="D3D\HippoD3d9Device.cpp">
+      <Filter>Game\FrameWork\d3d</Filter>
+    </ClCompile>
+    <ClCompile Include="D3D\HippoD3DxModel.cpp">
+      <Filter>Game\FrameWork\d3d</Filter>
+    </ClCompile>
+    <ClCompile Include="Utiltiy\ErrReport.cpp">
+      <Filter>Game\FrameWork\utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Utiltiy\HippoFilePath.cpp">
+      <Filter>Game\FrameWork\utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Utiltiy\Timer.cpp">
+      <Filter>Game\FrameWork\utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Globals.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="TankGameRender.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="BoundingVol.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityFactory.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="FxEffectManager.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="GameKeyBoardControl.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="XModelHelpFun.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyEntity.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="TerrainEntity.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEntity.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="RobotEntity.cpp">
+      <Filter>Game\Scene\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="RobotProxyImpl.cpp">
+      <Filter>Game\Scene\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="RobotRenderable.cpp">
+      <Filter>Game\Scene\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="TowerEntity.cpp">
+      <Filter>Game\Scene\Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="TowerProxyImpl.cpp">
+      <Filter>Game\Scene\Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="TowerRenderable.cpp">
+      <Filter>Game\Scene\Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldSerializer.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="GameRenderable.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="TankGameWorldImpl.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera\ModelViewCamera.cpp">
+      <Filter>Game\FrameWork\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera\FollowCamera.cpp">
+      <Filter>Game\FrameWork\camera</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt">
+      <Filter>vc_generate</Filter>
+    </None>
+  </ItemGroup>
+</Project>
