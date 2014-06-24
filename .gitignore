@@ -8,6 +8,7 @@
 *.pdb
 *.ilk
 *.idb
+*.ipch
 VcTmpFile
 
 # Compiled Dynamic libraries
