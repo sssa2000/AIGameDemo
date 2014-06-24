@@ -501,7 +501,7 @@ void TerrainRenderablePlane::Render(HippoD3d9Device* pdevice, unsigned int escap
 	v = m_fxhandle->SetValue("g_MaterialDiffuseColor", &vWhite, sizeof(D3DXCOLOR));
 
 	//texture
-	v = m_fxhandle->SetTexture("g_MeshTexture", m_pTextrue[0]);
+	//v = m_fxhandle->SetTexture("g_MeshTexture", m_pTextrue[0]);
 
 	//tower info
 	std::vector<GameEntity*>* alltowers = Globals::GetWorld()->GetAllTower();
@@ -594,7 +594,7 @@ void TerrainRenderablePlane::MakeIndexBuffer()
 void TerrainRenderablePlane::LoadTexture()
 {
 	auto device = Globals::GetDevice()->GetDeviceD3D9();
-	HRESULT v = D3DXCreateTextureFromFileA(device, "../media/seafloor.bmp", &m_pTextrue[0]);
+	//HRESULT v = D3DXCreateTextureFromFileA(device, "../media/seafloor.bmp", &m_pTextrue[0]);
 
 	
 }

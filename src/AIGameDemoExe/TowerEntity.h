@@ -10,11 +10,12 @@
  * TODO: long description
  *
  * \note
-*/
+ */
 #pragma once
 #include "GameEntity.h"
 #include "TowerProxyImpl.h"
 #include <memory>
+
 class ITowerProxy;
 class TowerRenderable;
 

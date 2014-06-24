@@ -13,10 +13,10 @@
 */
 
 #pragma once
-#include <vector>
-#include <d3dx9.h>
+
 #include "FxEffectManager.h"
-class sMaterial;
+#include <d3dx9.h>
+
 class GameEntity;
 class HippoD3d9Device;
 
@@ -34,7 +34,7 @@ protected:
 	GameEntity* m_parent;
 	ID3DXMesh* m_pD3dxMesh;
 	IDirect3DTexture9* m_d3d_texture;
-	D3DXMATRIX m_local_matrix; //用于表达renderable在entity坐标系中的变换
+	D3DXMATRIX m_local_matrix;
 	EffHandle m_fxhandle;
 	ID3DXMesh* m_pRangeMesh;
 };

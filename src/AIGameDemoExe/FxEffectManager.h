@@ -15,7 +15,8 @@
 #include <map>
 #include <memory>
 #include <string>
-struct ID3DXEffect;
+#include <d3dx9.h>
+
 typedef std::shared_ptr<ID3DXEffect> EffHandle;
 typedef std::map<std::string, EffHandle > EffCon;
 
