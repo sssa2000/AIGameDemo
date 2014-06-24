@@ -20,7 +20,9 @@
 #include "FollowCamera.h"
 #include "ModelViewCamera.h"
 #include "GameKeyBoardControl.h"
-
+#include "HippoUI_Wnd.h"
+#include "HippoUI_Button.h"
+#include "HippoUI_Label.h"
 struct appInfo
 {
 	appInfo()
@@ -50,6 +52,10 @@ void ParseCommandLine(int argc, char* argv[])
 
 
 //////////////////////////////////////////////////////////////////////////
+
+#define WND_001 0
+#define LABEL_001 1
+
 class TankGameExe :public HippoDxAppBase
 {
 public:
@@ -92,6 +98,7 @@ public:
 		m_pWnd->RegisterMouseRightUpEvent(Globals::GetRTSCamera()->GetMouseRightUpCallback());
 		m_pWnd->RegisterMouseMoveEvent(Globals::GetRTSCamera()->GetMouseMoveCallback());
 		m_pWnd->RegisterKeyDownEvent(Globals::GetRTSCamera()->GetKeyDownCallback());
+		m_pWnd->RegisterMouseWheelEvent(Globals::GetRTSCamera()->GetMouseWheelCallback());
 
 		GameKeyBoardControl* contorl=Globals::GetKeyBoardControl();
 		m_pWnd->RegisterKeyDownEvent(contorl->GetKeyDownCallback());
@@ -99,7 +106,11 @@ public:
 
 		m_pDevice->GetDeviceD3D9()->SetTransform(D3DTS_PROJECTION, Globals::GetRender()->GetProjMatrix());
 		
-
+		//ui
+		m_pWnd->GetCustomMsgProc() = bind(&HippoUI::HandleMessage, Globals::GetUI(), std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
+		HippoUI_Wnd* pWnd = Globals::GetUI()->CreateWnd(WND_001);
+		HippoUI_Label* pLabel = Globals::GetUI()->CreateLabel(pWnd, LABEL_001, 450, 50, 190, 160);
+		pLabel->SetText("abcdefghijklmnopqrstuvwxyz0123456789");
 
 	}
 
@@ -128,6 +139,7 @@ public:
 
 		m_pDevice->BeginRender();
 		Globals::GetRender()->Render((IGameWordContex*)Globals::GetWorld(),1000/60);
+		Globals::GetUI()->Render(escapeMs*0.001f);
 		m_pDevice->EndRender();
 	}
 

@@ -23,6 +23,7 @@ class ModelViewCamera;
 class FollowCamera;
 class FxEffectManager;
 class TankGameRender;
+class HippoUI;
 
 typedef IGameControl* (*CreateAIControl_FunPtr)();
 typedef void (*DeleteAIControl_FunPtr)();
@@ -50,6 +51,8 @@ public:
 
 	static FxEffectManager* GetFxManager();
 	static TankGameRender* GetRender();
+
+	static HippoUI* GetUI();
 };
 
 

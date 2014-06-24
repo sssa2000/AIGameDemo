@@ -34,10 +34,38 @@ void ModelViewCamera::SetLookAtPos(float x,float y,float z)
 	m_UpDir=D3DXVECTOR3(0,1,0);
 	D3DXVec3Cross(&m_RightDir,&m_ViewAtDir,&m_UpDir);
 }
+void ModelViewCamera::CalcMouseMove(unsigned int dElapsedTime)
+{
+	POINT ptCurMousePos;
+	GetCursorPos(&ptCurMousePos);
+	float g_fMoveSpeed = 3.2f;
+	D3DXVECTOR3 tmpRight = m_RightDir;
+	D3DXVECTOR3 tmpLook = m_ViewAtDir;
+	tmpRight.y = tmpLook.y = 0;
 
+	if (ptCurMousePos.x > 1000)
+	{
+		m_ViewAtPoint += (tmpRight*g_fMoveSpeed);
+	}
+	else if (ptCurMousePos.x < 20)
+	{
+		m_ViewAtPoint -= (tmpRight*g_fMoveSpeed);
+	}
+	if (ptCurMousePos.y < 10)
+	{
+		m_ViewAtPoint -= tmpLook*-g_fMoveSpeed;
+	}
+	else if (ptCurMousePos.y >750)
+	{
+		m_ViewAtPoint += tmpLook*-g_fMoveSpeed;
+	}
+}
 
 int ModelViewCamera::FrameUpdate(unsigned int dElapsedTime)
 {
+	//¼ÆËãtarget point
+	CalcMouseMove(dElapsedTime);
+
 	m_Pos.x=m_r*cosf(m_xz_delta)*sinf(m_y_delta);
 	m_Pos.z=m_r*sinf(m_xz_delta)*sinf(m_y_delta);
 	m_Pos.y=m_r*cosf(m_y_delta);
@@ -120,30 +148,32 @@ int ModelViewCamera::OnMouseRightUp(HippoMouseEvent& e)
 }
 int ModelViewCamera::OnMouseMove(HippoMouseEvent& e)
 {
-	if(!m_bRightHasDown)
-		return 1;
+	if (m_bRightHasDown)
+	{
+		POINT ptCurMousePos;
+		GetCursorPos(&ptCurMousePos);
 
-	POINT ptCurMousePos;
-	GetCursorPos( &ptCurMousePos );
+		int mouseX_dis = ptCurMousePos.x - m_nLastMouseX;
+		int mousey_dis = ptCurMousePos.y - m_nLastMouseY;
 
-	int mouseX_dis = ptCurMousePos.x-m_nLastMouseX;
-	int mousey_dis = ptCurMousePos.y-m_nLastMouseY;
+		m_xz_delta += mouseX_dis*0.03f;
+		m_y_delta += -mousey_dis*0.03f;
+		if (m_y_delta >= D3DXToRadian(75))
+			m_y_delta = D3DXToRadian(75);
 
-	m_xz_delta+=mouseX_dis*0.03f;
-	m_y_delta+=-mousey_dis*0.03f;
-	if(m_y_delta>=D3DXToRadian(75))
-		m_y_delta=D3DXToRadian(75);
+		if (m_y_delta <= D3DXToRadian(15))
+			m_y_delta = D3DXToRadian(15);
 
-	if(m_y_delta<=D3DXToRadian(15))
-		m_y_delta=D3DXToRadian(15);
+		m_nLastMouseX = ptCurMousePos.x;
+		m_nLastMouseY = ptCurMousePos.y;
+	}
 
-	m_nLastMouseX=ptCurMousePos.x;
-	m_nLastMouseY=ptCurMousePos.y;
 	return 1;
 }
 
 int ModelViewCamera::OnMouseWheel(HippoWheelEvent& w)
 {
+	m_r -= w.wheel_delta*0.1f;
 	return 1;
 }
 int ModelViewCamera::OnKeyDown(unsigned int k)

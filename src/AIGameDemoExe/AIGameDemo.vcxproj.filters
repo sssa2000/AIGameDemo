@@ -40,6 +40,12 @@
     <Filter Include="Game\Scene\Tower">
       <UniqueIdentifier>{3769239f-3118-4ab9-8563-f03eed93613f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\FrameWork\ui">
+      <UniqueIdentifier>{76b641d5-a4bc-4222-9886-f88ae24dd495}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\FrameWork\tixml">
+      <UniqueIdentifier>{9b374ab1-39fa-4e21-b9a1-d5dfd637337a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -162,6 +168,96 @@
     <ClInclude Include="Camera\FollowCamera.h">
       <Filter>Game\FrameWork\camera</Filter>
     </ClInclude>
+    <ClInclude Include="..\HippoUI\HippoTextLayOut_Impl_Uniscribe.h">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\HippoUI\HippoUI_Button.h">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\HippoUI\HippoUI_Button_Appearance.h">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\HippoUI\HippoUI_Control.h">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\HippoUI\HippoUI_Define.h">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\HippoUI\HippoUI_Factory.h">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\HippoUI\HippoUI_Global.h">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\HippoUI\HippoUI_HelpFun.h">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\HippoUI\HippoUI_Include.h">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\HippoUI\HippoUI_Label.h">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\HippoUI\HippoUI_Label_Appearance.h">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\HippoUI\HippoUI_LineEdit.h">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\HippoUI\HippoUI_LineEdit_Appearance.h">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\HippoUI\HippoUI_ListBox.h">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\HippoUI\HippoUI_ListBox_Appearance.h">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\HippoUI\HippoUI_Render.h">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\HippoUI\HippoUI_RenderD3D9.h">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\HippoUI\HippoUI_ResFactory.h">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\HippoUI\HippoUI_ResFactoryD3D9.h">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\HippoUI\HippoUI_ResManager.h">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\HippoUI\HippoUI_Resource.h">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\HippoUI\HippoUI_SubTextureHolder.h">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\HippoUI\HippoUI_TextureD3D9.h">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\HippoUI\HippoUI_Timer.h">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\HippoUI\HippoUI_Wnd.h">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\HippoUI\HippoUI_Wnd_Appearance.h">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\HippoUI\IHippoTextLayOut.h">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\HippoUI\IHippoUI_Appearance.h">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="thirdlib\tixml\tinystr.h">
+      <Filter>Game\FrameWork\tixml</Filter>
+    </ClInclude>
+    <ClInclude Include="thirdlib\tixml\tinyxml.h">
+      <Filter>Game\FrameWork\tixml</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -262,6 +358,87 @@
     </ClCompile>
     <ClCompile Include="Camera\FollowCamera.cpp">
       <Filter>Game\FrameWork\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\HippoUI\HippoTextLayOut_Impl_Uniscribe.cpp">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\HippoUI\HippoUI_Button.cpp">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\HippoUI\HippoUI_Button_Appearance.cpp">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\HippoUI\HippoUI_Define.cpp">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\HippoUI\HippoUI_Factory.cpp">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\HippoUI\HippoUI_Global.cpp">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\HippoUI\HippoUI_HelpFun.cpp">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\HippoUI\HippoUI_Include.cpp">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\HippoUI\HippoUI_Label.cpp">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\HippoUI\HippoUI_Label_Appearance.cpp">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\HippoUI\HippoUI_LineEdit.cpp">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\HippoUI\HippoUI_LineEdit_Appearance.cpp">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\HippoUI\HippoUI_ListBox.cpp">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\HippoUI\HippoUI_ListBox_Appearance.cpp">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\HippoUI\HippoUI_RenderD3D9.cpp">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\HippoUI\HippoUI_ResFactory.cpp">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\HippoUI\HippoUI_ResFactoryD3D9.cpp">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\HippoUI\HippoUI_ResManager.cpp">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\HippoUI\HippoUI_SubTextureHolder.cpp">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\HippoUI\HippoUI_TextureD3D9.cpp">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\HippoUI\HippoUI_Timer.cpp">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\HippoUI\HippoUI_Wnd.cpp">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\HippoUI\HippoUI_Wnd_Appearance.cpp">
+      <Filter>Game\FrameWork\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="thirdlib\tixml\tinystr.cpp">
+      <Filter>Game\FrameWork\tixml</Filter>
+    </ClCompile>
+    <ClCompile Include="thirdlib\tixml\tinyxml.cpp">
+      <Filter>Game\FrameWork\tixml</Filter>
+    </ClCompile>
+    <ClCompile Include="thirdlib\tixml\tinyxmlerror.cpp">
+      <Filter>Game\FrameWork\tixml</Filter>
+    </ClCompile>
+    <ClCompile Include="thirdlib\tixml\tinyxmlparser.cpp">
+      <Filter>Game\FrameWork\tixml</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

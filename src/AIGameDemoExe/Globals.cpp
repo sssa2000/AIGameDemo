@@ -13,6 +13,8 @@
 #include "FxEffectManager.h"
 #include "TankGameRender.h"
 #include "FreeImage.h"
+#include "HippoUI_Include.h"
+#include "HippoUI_Wnd.h"
 HippoD3d9Device* gDevice = 0;
 EntityFactory* gEntityFactory=0;
 Timer* timer=0;
@@ -28,6 +30,7 @@ FollowCamera* gFollowCamera=0;
 CameraBase* gCurrentCamera = 0;
 FxEffectManager* gFxEffectManager = 0;
 TankGameRender* gRender = 0;
+HippoUI* gUI = 0;
 
 HMODULE m_dll;
 CreateAIControl_FunPtr gCreateAIPtr = 0;
@@ -91,8 +94,15 @@ void Globals::Init(HippoD3d9Device* device, const char* dllname, int w, int h)
 	gRTSCamera=new ModelViewCamera;
 	gCurrentCamera = gRTSCamera;
 
+	gUI = new HippoUI("../media/ui/dxut_style.xml", gDevice->GetDeviceD3D9(), HDT_D3D9);
+
 	InitDLL(dllname);
 }
+HippoUI* Globals::GetUI()
+{
+	return gUI;
+}
+
 void Globals::CleanUp()
 {
 	SAFE_RELEASE(gEntityFactory);
@@ -110,7 +120,7 @@ void Globals::CleanUp()
 		FreeModule(m_dll);
 	SAFE_DELETE(gFxEffectManager);
 	SAFE_DELETE(gRender);
-
+	SAFE_DELETE(gUI);
 	FreeImage_DeInitialise();
 }
 

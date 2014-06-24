@@ -59,7 +59,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>d3d;Utiltiy;HippoAppBase;idmath;./;../CommonInterface;./thirdlib;./camera</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>d3d;Utiltiy;HippoAppBase;idmath;./;../CommonInterface;./thirdlib;./camera;../HippoUI</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -76,7 +76,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>d3d;Utiltiy;HippoAppBase;idmath;./;../CommonInterface;./thirdlib;./camera</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>d3d;Utiltiy;HippoAppBase;idmath;./;../CommonInterface;./thirdlib;./camera;../HippoUI</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -95,6 +95,34 @@
     <ClInclude Include="..\CommonInterface\IGameWorld.h" />
     <ClInclude Include="..\CommonInterface\IRobotProxy.h" />
     <ClInclude Include="..\CommonInterface\ITowerProxy.h" />
+    <ClInclude Include="..\HippoUI\HippoTextLayOut_Impl_Uniscribe.h" />
+    <ClInclude Include="..\HippoUI\HippoUI_Button.h" />
+    <ClInclude Include="..\HippoUI\HippoUI_Button_Appearance.h" />
+    <ClInclude Include="..\HippoUI\HippoUI_Control.h" />
+    <ClInclude Include="..\HippoUI\HippoUI_Define.h" />
+    <ClInclude Include="..\HippoUI\HippoUI_Factory.h" />
+    <ClInclude Include="..\HippoUI\HippoUI_Global.h" />
+    <ClInclude Include="..\HippoUI\HippoUI_HelpFun.h" />
+    <ClInclude Include="..\HippoUI\HippoUI_Include.h" />
+    <ClInclude Include="..\HippoUI\HippoUI_Label.h" />
+    <ClInclude Include="..\HippoUI\HippoUI_Label_Appearance.h" />
+    <ClInclude Include="..\HippoUI\HippoUI_LineEdit.h" />
+    <ClInclude Include="..\HippoUI\HippoUI_LineEdit_Appearance.h" />
+    <ClInclude Include="..\HippoUI\HippoUI_ListBox.h" />
+    <ClInclude Include="..\HippoUI\HippoUI_ListBox_Appearance.h" />
+    <ClInclude Include="..\HippoUI\HippoUI_Render.h" />
+    <ClInclude Include="..\HippoUI\HippoUI_RenderD3D9.h" />
+    <ClInclude Include="..\HippoUI\HippoUI_ResFactory.h" />
+    <ClInclude Include="..\HippoUI\HippoUI_ResFactoryD3D9.h" />
+    <ClInclude Include="..\HippoUI\HippoUI_ResManager.h" />
+    <ClInclude Include="..\HippoUI\HippoUI_Resource.h" />
+    <ClInclude Include="..\HippoUI\HippoUI_SubTextureHolder.h" />
+    <ClInclude Include="..\HippoUI\HippoUI_TextureD3D9.h" />
+    <ClInclude Include="..\HippoUI\HippoUI_Timer.h" />
+    <ClInclude Include="..\HippoUI\HippoUI_Wnd.h" />
+    <ClInclude Include="..\HippoUI\HippoUI_Wnd_Appearance.h" />
+    <ClInclude Include="..\HippoUI\IHippoTextLayOut.h" />
+    <ClInclude Include="..\HippoUI\IHippoUI_Appearance.h" />
     <ClInclude Include="BoundingVol.h" />
     <ClInclude Include="Camera\CameraBase.h" />
     <ClInclude Include="Camera\FollowCamera.h" />
@@ -122,6 +150,8 @@
     <ClInclude Include="TankGameWorldImpl.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TerrainEntity.h" />
+    <ClInclude Include="thirdlib\tixml\tinystr.h" />
+    <ClInclude Include="thirdlib\tixml\tinyxml.h" />
     <ClInclude Include="TowerEntity.h" />
     <ClInclude Include="TowerProxyImpl.h" />
     <ClInclude Include="TowerRenderable.h" />
@@ -133,6 +163,29 @@
     <ClInclude Include="XModelHelpFun.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\HippoUI\HippoTextLayOut_Impl_Uniscribe.cpp" />
+    <ClCompile Include="..\HippoUI\HippoUI_Button.cpp" />
+    <ClCompile Include="..\HippoUI\HippoUI_Button_Appearance.cpp" />
+    <ClCompile Include="..\HippoUI\HippoUI_Define.cpp" />
+    <ClCompile Include="..\HippoUI\HippoUI_Factory.cpp" />
+    <ClCompile Include="..\HippoUI\HippoUI_Global.cpp" />
+    <ClCompile Include="..\HippoUI\HippoUI_HelpFun.cpp" />
+    <ClCompile Include="..\HippoUI\HippoUI_Include.cpp" />
+    <ClCompile Include="..\HippoUI\HippoUI_Label.cpp" />
+    <ClCompile Include="..\HippoUI\HippoUI_Label_Appearance.cpp" />
+    <ClCompile Include="..\HippoUI\HippoUI_LineEdit.cpp" />
+    <ClCompile Include="..\HippoUI\HippoUI_LineEdit_Appearance.cpp" />
+    <ClCompile Include="..\HippoUI\HippoUI_ListBox.cpp" />
+    <ClCompile Include="..\HippoUI\HippoUI_ListBox_Appearance.cpp" />
+    <ClCompile Include="..\HippoUI\HippoUI_RenderD3D9.cpp" />
+    <ClCompile Include="..\HippoUI\HippoUI_ResFactory.cpp" />
+    <ClCompile Include="..\HippoUI\HippoUI_ResFactoryD3D9.cpp" />
+    <ClCompile Include="..\HippoUI\HippoUI_ResManager.cpp" />
+    <ClCompile Include="..\HippoUI\HippoUI_SubTextureHolder.cpp" />
+    <ClCompile Include="..\HippoUI\HippoUI_TextureD3D9.cpp" />
+    <ClCompile Include="..\HippoUI\HippoUI_Timer.cpp" />
+    <ClCompile Include="..\HippoUI\HippoUI_Wnd.cpp" />
+    <ClCompile Include="..\HippoUI\HippoUI_Wnd_Appearance.cpp" />
     <ClCompile Include="BoundingVol.cpp" />
     <ClCompile Include="Camera\FollowCamera.cpp" />
     <ClCompile Include="Camera\FPSCamera.cpp" />
@@ -158,6 +211,10 @@
     <ClCompile Include="TankGameRender.cpp" />
     <ClCompile Include="TankGameWorldImpl.cpp" />
     <ClCompile Include="TerrainEntity.cpp" />
+    <ClCompile Include="thirdlib\tixml\tinystr.cpp" />
+    <ClCompile Include="thirdlib\tixml\tinyxml.cpp" />
+    <ClCompile Include="thirdlib\tixml\tinyxmlerror.cpp" />
+    <ClCompile Include="thirdlib\tixml\tinyxmlparser.cpp" />
     <ClCompile Include="TowerEntity.cpp" />
     <ClCompile Include="TowerProxyImpl.cpp" />
     <ClCompile Include="TowerRenderable.cpp" />

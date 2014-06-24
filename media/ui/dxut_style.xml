@@ -1,0 +1,37 @@
+<Root>
+	<Control type="label">
+		<ShaderFx state="" file=""/>
+		<Texture state="LABEL_NORMAL" file="./UIResource/DXUT_Style/label_bk.bmp"/>
+	</Control>
+	<Control type="button">
+		<ShaderFx state="" file=""/>
+		<Texture state="BUTTON_BG" file="./UIResource/DXUT_Style/dxut_ui.tga" rect="0,0,136,54"/>
+		<Texture state="BUTTON_FG" file="./UIResource/DXUT_Style/dxut_ui.tga" rect="136,0,252,54"/>
+	</Control>
+	<Control type="editbox">
+		<ShaderFx state="" file=""/>
+		<Texture state="LINEEDIT_0" file="./UIResource/DXUT_Style/dxut_ui.tga" rect="14, 90, 241, 113"/>
+		<Texture state="LINEEDIT_1" file="./UIResource/DXUT_Style/dxut_ui.tga" rect="8, 82, 14, 90"/>
+		<Texture state="LINEEDIT_2" file="./UIResource/DXUT_Style/dxut_ui.tga" rect="14, 82, 241, 90"/>
+		<Texture state="LINEEDIT_3" file="./UIResource/DXUT_Style/dxut_ui.tga" rect="241, 82, 246, 90"/>
+		<Texture state="LINEEDIT_4" file="./UIResource/DXUT_Style/dxut_ui.tga" rect="8, 90, 14, 113"/>
+		<Texture state="LINEEDIT_5" file="./UIResource/DXUT_Style/dxut_ui.tga" rect="241, 90, 246, 113"/>
+		<Texture state="LINEEDIT_6" file="./UIResource/DXUT_Style/dxut_ui.tga" rect="8, 113, 14, 121"/>
+		<Texture state="LINEEDIT_7" file="./UIResource/DXUT_Style/dxut_ui.tga" rect="14, 113, 241, 121"/>
+		<Texture state="LINEEDIT_8" file="./UIResource/DXUT_Style/dxut_ui.tga" rect="241, 113, 246, 121"/>
+	</Control>
+
+	<Control type="listbox">
+		<ShaderFx state="" file=""/>
+		<Texture state="LISTBOX_FRAME" file="./UIResource/DXUT_Style/dxut_ui.tga" rect="13, 123, 241, 160"/>
+	</Control>
+	
+	<Control type="scrollbar">
+		<ShaderFx state="" file=""/>
+		<Texture state="SCROLLBAR_TRACK" file="./UIResource/DXUT_Style/dxut_ui.tga" rect="196, 212, 218, 223"/>
+		<Texture state="SCROLLBAR_UP" file="./UIResource/DXUT_Style/dxut_ui.tga" rect="196, 192, 218, 212"/>
+		<Texture state="SCROLLBAR_DOWN" file="./UIResource/DXUT_Style/dxut_ui.tga" rect="196, 223, 218, 244"/>
+		<Texture state="SCROLLBAR_BUTTON" file="./UIResource/DXUT_Style/dxut_ui.tga" rect="220, 192, 238, 234"/>
+		
+	</Control>	
+</Root>

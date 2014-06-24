@@ -70,9 +70,12 @@ protected:
 	void SetPosDelta(const D3DXVECTOR3& posdelta);
 	void SetPosDelta(float dir);
 
+	void CalcMouseMove(unsigned int dElapsedTime);
 	//void Roate(float degreeInRadXZ,float degreeInRadY);
 
 	bool m_bRightHasDown;
 	int m_nLastMouseX;
 	int m_nLastMouseY;
+
+
 };
