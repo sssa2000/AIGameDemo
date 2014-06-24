@@ -3,6 +3,12 @@
 *.lo
 *.o
 *.obj
+*.sdf
+*.tlog
+*.pdb
+*.ilk
+*.idb
+VcTmpFile
 
 # Compiled Dynamic libraries
 *.so
