@@ -101,7 +101,7 @@ void TankGameRender::Render(IGameWordContex* p,unsigned int t)
 	DrawTerrain(p, t);
 	DrawTanks(p, t);
 	DrawTowers(p, t);
-
+	DrawRangeMesh(p, t);
 
 }
 void TankGameRender::DrawSky(IGameWordContex* p, unsigned int t)
