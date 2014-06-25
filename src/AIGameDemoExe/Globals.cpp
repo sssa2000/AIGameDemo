@@ -31,14 +31,17 @@ CameraBase* gCurrentCamera = 0;
 FxEffectManager* gFxEffectManager = 0;
 TankGameRender* gRender = 0;
 HippoUI* gUI = 0;
-
+HWND gHwnd=0;
 HMODULE m_dll;
 CreateAIControl_FunPtr gCreateAIPtr = 0;
 DeleteAIControl_FunPtr gDeleteAIPtr = 0;
 
 #define SAFE_RELEASE(p) {if(p)p->Release();p=0;}
 #define SAFE_DELETE(p) {if(p)delete p;p=0;}
-
+HWND Globals::GetWndHwnd()
+{
+	return gHwnd;
+}
 HippoD3d9Device* Globals::GetDevice()
 {
 	return gDevice;
@@ -76,8 +79,9 @@ void InitDLL(const char* dllname)
 	FreeImage_Initialise();
 
 }
-void Globals::Init(HippoD3d9Device* device, const char* dllname, int w, int h)
+void Globals::Init(HippoD3d9Device* device, const char* dllname, int w, int h,HWND hwnd)
 {
+	gHwnd=hwnd;
 	gDevice = device;
 	gRender = new TankGameRender(gDevice);
 	gRender->Init(w,h);

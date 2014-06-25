@@ -1,5 +1,5 @@
 #include "ModelViewCamera.h"
-
+#include "Globals.h"
 ModelViewCamera::ModelViewCamera()
 {
 	D3DXMatrixIdentity(&m_rotation);
@@ -10,7 +10,7 @@ ModelViewCamera::ModelViewCamera()
 	m_UpDir=D3DXVECTOR3(0,1,0);
 	m_RightDir=D3DXVECTOR3(1,0,0);
 	m_xz_delta=0;
-	m_y_delta=0;
+	m_y_delta=D3DXToRadian(45);
 
 	UpdateCameraCoord();
 	m_bRightHasDown=false;
@@ -30,6 +30,7 @@ void ModelViewCamera::SetPos(float x,float y,float z)
 void ModelViewCamera::SetLookAtPos(float x,float y,float z)
 {
 	D3DXVECTOR3 at(x,y,z);
+	m_ViewAtPoint=at;
 	m_ViewAtDir=D3DXVECTOR3(x,y,z)-m_Pos;
 	m_UpDir=D3DXVECTOR3(0,1,0);
 	D3DXVec3Cross(&m_RightDir,&m_ViewAtDir,&m_UpDir);
@@ -38,24 +39,40 @@ void ModelViewCamera::CalcMouseMove(unsigned int dElapsedTime)
 {
 	POINT ptCurMousePos;
 	GetCursorPos(&ptCurMousePos);
+
+	//转化为相对窗口原点（wnd左上角）的坐标
+	RECT wndRect;
+
+	GetWindowRect(Globals::GetWndHwnd(),&wndRect);
+	int caption_w=GetSystemMetrics(SM_CYSMCAPTION);
+	int xborder_w=GetSystemMetrics(SM_CXBORDER);
+	int yborder_w=GetSystemMetrics(SM_CYBORDER);
+
+
+	int rel_mouse_x=ptCurMousePos.x;
+	int rel_mouse_y=ptCurMousePos.y;
+
+
 	float g_fMoveSpeed = 3.2f;
 	D3DXVECTOR3 tmpRight = m_RightDir;
 	D3DXVECTOR3 tmpLook = m_ViewAtDir;
 	tmpRight.y = tmpLook.y = 0;
 
-	if (ptCurMousePos.x > 1000)
+	const int offset=35;
+	if (rel_mouse_x > (wndRect.right-xborder_w-offset) && rel_mouse_x < wndRect.right)
 	{
 		m_ViewAtPoint += (tmpRight*g_fMoveSpeed);
 	}
-	else if (ptCurMousePos.x < 20)
+	else if (rel_mouse_x < (wndRect.left+xborder_w+offset) && rel_mouse_x > wndRect.left)
 	{
 		m_ViewAtPoint -= (tmpRight*g_fMoveSpeed);
 	}
-	if (ptCurMousePos.y < 10)
+	
+	if (rel_mouse_y <(wndRect.top+caption_w+offset+yborder_w) && rel_mouse_y > wndRect.top)
 	{
 		m_ViewAtPoint -= tmpLook*-g_fMoveSpeed;
 	}
-	else if (ptCurMousePos.y >750)
+	else if (rel_mouse_y > (wndRect.bottom -offset-yborder_w) && rel_mouse_y < wndRect.bottom)
 	{
 		m_ViewAtPoint += tmpLook*-g_fMoveSpeed;
 	}
@@ -63,32 +80,26 @@ void ModelViewCamera::CalcMouseMove(unsigned int dElapsedTime)
 
 int ModelViewCamera::FrameUpdate(unsigned int dElapsedTime)
 {
-	//计算target point
-	CalcMouseMove(dElapsedTime);
+
 
 	m_Pos.x=m_r*cosf(m_xz_delta)*sinf(m_y_delta);
 	m_Pos.z=m_r*sinf(m_xz_delta)*sinf(m_y_delta);
 	m_Pos.y=m_r*cosf(m_y_delta);
 
 	m_Pos+=m_ViewAtPoint;
-
-	//先绕竖直向上的轴转
+	CalcMouseMove(dElapsedTime);
+	
 	m_ViewAtDir=m_ViewAtPoint-m_Pos;
-	D3DXVECTOR3 up(0,1,0);
-	D3DXMATRIX _rotation;
-	D3DXMatrixRotationAxis( &_rotation, &up, m_xz_delta);
-	D3DXVec3TransformCoord( &m_RightDir,&m_RightDir, &m_rotation );
-
-	//再绕x转
-	D3DXMatrixRotationAxis( &_rotation, &m_RightDir, m_y_delta);
 	m_UpDir = D3DXVECTOR3(0, 1, 0);
-	D3DXVec3TransformCoord( &m_UpDir,&m_UpDir, &m_rotation );
+	D3DXVec3Cross(&m_RightDir,&m_UpDir,&m_ViewAtDir);
+	D3DXVec3Cross(&m_UpDir,&m_ViewAtDir,&m_RightDir);
 
 	D3DXVec3Normalize(&m_ViewAtDir,&m_ViewAtDir);
 	D3DXVec3Normalize(&m_RightDir,&m_RightDir);
 	D3DXVec3Normalize(&m_UpDir,&m_UpDir);
 
 	return 1;
+
 }
 void ModelViewCamera::LookAt(IDirect3DDevice9* p)
 {

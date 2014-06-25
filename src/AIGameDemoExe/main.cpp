@@ -82,7 +82,8 @@ public:
 
 	void InitApp()
 	{
-		Globals::Init(GetDevice(), ginfo.dllfilename.c_str(), m_pWnd->GetWidth(), m_pWnd->GetHeight());
+		
+		Globals::Init(GetDevice(), ginfo.dllfilename.c_str(), m_pWnd->GetWidth(), m_pWnd->GetHeight(),m_pWnd->GetHwnd());
 		Globals::GetWorld()->InitWorld();
 
 		Globals::SwitchCameraAndControl(ginfo.aimode);
@@ -109,8 +110,8 @@ public:
 		//ui
 		m_pWnd->GetCustomMsgProc() = bind(&HippoUI::HandleMessage, Globals::GetUI(), std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
 		HippoUI_Wnd* pWnd = Globals::GetUI()->CreateWnd(WND_001);
-		HippoUI_Label* pLabel = Globals::GetUI()->CreateLabel(pWnd, LABEL_001, 450, 50, 190, 160);
-		pLabel->SetText("abcdefghijklmnopqrstuvwxyz0123456789");
+		HippoUI_Label* pLabel = Globals::GetUI()->CreateLabel(pWnd, LABEL_001, 450, 50, 390, 160);
+		pLabel->SetText("这是一个Label! AIGAMEDEMO");
 
 	}
 

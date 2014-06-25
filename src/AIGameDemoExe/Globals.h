@@ -10,6 +10,8 @@
 	purpose:	
 *********************************************************************/
 #pragma once
+#include <Windows.h>
+
 
 class EntityFactory;
 class HippoD3d9Device;
@@ -32,8 +34,9 @@ typedef void (*DeleteAIControl_FunPtr)();
 class Globals
 {
 public:
-	static void Init(HippoD3d9Device* device, const char* dllname,int w,int h);
+	static void Init(HippoD3d9Device* device, const char* dllname,int w,int h,HWND hwnd);
 	static void CleanUp();
+	static HWND GetWndHwnd();
 	static HippoD3d9Device* GetDevice();
 	static EntityFactory* GetEntityFactory();
 	static Timer* GetTimer();
