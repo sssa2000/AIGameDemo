@@ -1,12 +1,12 @@
 #include "GameEntity.h"
 #include "GameRenderable.h"
-
+#include "Globals.h"
 
 GameEntity::GameEntity()
 {
 	D3DXMatrixIdentity(&m_world_matrix);
 	UpdateVarFromMatrix();
-	m_bNeedUpdatePosRot = true;
+	//m_bNeedUpdatePosRot = true;
 }
 
 GameEntity::~GameEntity()
@@ -24,10 +24,6 @@ void GameEntity::SetWorldTransform(D3DXMATRIX* p)
 	UpdateVarFromMatrix();
 }
 
-void GameEntity::ApplyWorldTransform(D3DXMATRIX& mat)
-{
-	D3DXMatrixMultiply(&m_world_matrix, &m_world_matrix, &mat);
-}
 void GameEntity::SetPostion(float x, float y, float z)
 {
 	m_world_matrix._41 = x;
@@ -56,3 +52,15 @@ sBoundingSphere* GameEntity::GetBoundSphere()
 	return &m_boundingsphere;
 }
 
+void GameEntity::Render(unsigned int escapeTime)
+{
+	auto d3ddevice = Globals::GetDevice();
+	m_pRenderable->Render(d3ddevice, escapeTime);
+}
+
+void GameEntity::InitRenderable(SceneObjCreateInfo& info)
+{
+	m_pRenderable.reset(new GameRenderable(this));
+	m_pRenderable->LoadFromFile(info);
+
+}

@@ -10,19 +10,44 @@
 	purpose:	
 *********************************************************************/
 #pragma once
+#include <vector>
+#include <string>
+#include <d3dx9math.h>
 
 class GameEntity;
 class HippoD3d9Device;
 class TowerEntity;
 class TerrainEntity;
+
+struct ModelCreateInfo
+{
+	std::string meshFilename;
+	std::string fxFilename;
+	std::vector<std::string> textureFilename;
+};
+
+struct TowerCreateInfo
+{
+	float range;
+	ModelCreateInfo sobj;
+	D3DXMATRIX worldTransform;
+};
+
+struct SceneObjCreateInfo
+{
+	ModelCreateInfo sobj;
+	D3DXMATRIX worldTransform;
+};
+
 class EntityFactory
 {
 public:
 	void Release(){delete this;}
 	EntityFactory(HippoD3d9Device* pDevice);
 	GameEntity* CreateTank();
-	TowerEntity* CreateTower(float range);
+	TowerEntity* CreateTower(TowerCreateInfo& towerInfo);
 	TerrainEntity* CreateFloor();
+	GameEntity* CreateSceneObj(SceneObjCreateInfo& objinfo);
 private:
 	GameEntity* CreateFromXFile(const char* s);
 	HippoD3d9Device* m_pDevice;

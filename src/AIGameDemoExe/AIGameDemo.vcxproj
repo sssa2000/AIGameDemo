@@ -159,7 +159,6 @@
     <ClInclude Include="Utiltiy\HippoFilePath.h" />
     <ClInclude Include="Utiltiy\ScopeGuard.h" />
     <ClInclude Include="Utiltiy\Timer.h" />
-    <ClInclude Include="WorldSerializer.h" />
     <ClInclude Include="XModelHelpFun.h" />
   </ItemGroup>
   <ItemGroup>
@@ -221,7 +220,6 @@
     <ClCompile Include="Utiltiy\ErrReport.cpp" />
     <ClCompile Include="Utiltiy\HippoFilePath.cpp" />
     <ClCompile Include="Utiltiy\Timer.cpp" />
-    <ClCompile Include="WorldSerializer.cpp" />
     <ClCompile Include="XModelHelpFun.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

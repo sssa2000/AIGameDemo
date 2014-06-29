@@ -37,61 +37,41 @@ void TankGameRender::Update(unsigned int escapeTime)
 }
 void TankGameRender::DrawTanks(IGameWordContex* p, unsigned int t)
 {
-	std::vector<GameEntity*>* alltanks = p->GetAllRobots();
-	auto itr=alltanks->begin();
-	while (itr!=alltanks->end())
+	auto alltanks = p->GetAllRobots();
+	auto itr=alltanks.begin();
+	while (itr!=alltanks.end())
 	{
-		RobotEntity* pEntity = (RobotEntity*)(*itr);
-		std::for_each(
-			pEntity->GetRenderable()->begin(), 
-			pEntity->GetRenderable()->end(), 
-			[&](GameRenderable* pr){pr->Render(m_pDevice,t); }
-		);
-		
+		auto pEntity = (*itr);
+		pEntity->Render(t);
 		++itr;
 	}
 }
 void TankGameRender::DrawTowers(IGameWordContex* p, unsigned int t)
 {
-	std::vector<GameEntity*>* alltowers=p->GetAllTower();
-	auto itr=alltowers->begin();
-	while (itr!=alltowers->end())
+	auto alltowers=p->GetAllTower();
+	auto itr=alltowers.begin();
+	while (itr!=alltowers.end())
 	{
-		TowerEntity* pEntity = (TowerEntity*)(*itr);
-		std::for_each(
-			pEntity->GetRenderable()->begin(),
-			pEntity->GetRenderable()->end(),
-			[&](TowerRenderable* pr){pr->Render(m_pDevice,t); }
-		);
+		auto pEntity = (*itr);
+		pEntity->Render(t);
 		++itr;
-
 	}
 }
-void TankGameRender::DrawRangeMesh(IGameWordContex* p, unsigned int t)
-{
-	std::vector<GameEntity*>* alltowers = p->GetAllTower();
-	auto itr = alltowers->begin();
-	while (itr != alltowers->end())
-	{
-		TowerEntity* pEntity = (TowerEntity*)(*itr);
-		std::for_each(
-			pEntity->GetRenderable()->begin(),
-			pEntity->GetRenderable()->end(),
-			[&](TowerRenderable* pr){pr->RenderRangeMesh(m_pDevice, t); }
-		);
-		++itr;
 
-	}
-}
 void TankGameRender::DrawTerrain(IGameWordContex* pc, unsigned int t)
 {
-	TerrainEntity* floor=pc->GetFloor();
-	floor->GetRenderable()->Render(m_pDevice, t);
+	pc->GetFloor()->Render( t);
 }
-void TankGameRender::DrawTerrainInRange(IGameWordContex* p, unsigned int t)
+void TankGameRender::DrawSceneObj(IGameWordContex* p, unsigned int t)
 {
-
-
+	auto allsceneobj = p->GetAllSceneObj();
+	auto itr = allsceneobj.begin();
+	while (itr != allsceneobj.end())
+	{
+		auto pEntity = (*itr);
+		pEntity->Render(t);
+		++itr;
+	}
 }
 
 
@@ -101,14 +81,13 @@ void TankGameRender::Render(IGameWordContex* p,unsigned int t)
 	DrawTerrain(p, t);
 	DrawTanks(p, t);
 	DrawTowers(p, t);
-	DrawRangeMesh(p, t);
+	DrawSceneObj(p, t);
 
 }
 void TankGameRender::DrawSky(IGameWordContex* p, unsigned int t)
 {
-	SkyDoomEntity* pSky = p->GetSky();
-	if (pSky)
-		pSky->GetRenderable()->Render(m_pDevice, t);
+	p->GetSky()->Render(t);
+	
 }
 
 const D3DXMATRIX* TankGameRender::GetViewMatrix()

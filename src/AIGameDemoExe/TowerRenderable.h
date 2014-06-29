@@ -13,7 +13,8 @@
 */
 
 #pragma once
-
+#include "EntityFactory.h"
+#include "TowerEntity.h"
 #include "FxEffectManager.h"
 #include <d3dx9.h>
 
@@ -34,20 +35,23 @@ struct QuadVertex
 class TowerRenderable
 {
 public:
+	friend class TowerEntity;
+
 	TowerRenderable(GameEntity* parent);
 	~TowerRenderable();
 	void Render(HippoD3d9Device* pdevice, unsigned int escapeTime);
 	void RenderRangeMesh(HippoD3d9Device* pdevice, unsigned int escapeTime);
 protected:
-	void LoadFromFile();
+	void LoadFromFile(TowerCreateInfo& towerInfo);
 	void InitPatchQuad(float range);
 	void InitPatchQuadVB(float range,float terrainHeight);
 	void InitPatchQuadIB();
 	void InitPatchQuadVBDeclare();
-	ID3DXEffect* m_pEffect;
 	GameEntity* m_parent;
 	ID3DXMesh* m_pD3dxMesh;
 	IDirect3DTexture9* m_d3d_texture;
+	IDirect3DTexture9* m_range_texture;
+
 	D3DXMATRIX m_local_matrix;
 	EffHandle m_fxhandle;
 

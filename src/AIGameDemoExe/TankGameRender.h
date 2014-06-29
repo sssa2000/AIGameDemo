@@ -32,9 +32,9 @@ protected:
 	void DrawTanks(IGameWordContex* p, unsigned int t);
 	void DrawTowers(IGameWordContex* p, unsigned int t);
 	void DrawTerrain(IGameWordContex* p, unsigned int t);
-	void DrawTerrainInRange(IGameWordContex* p, unsigned int t);
+	void DrawSceneObj(IGameWordContex* p, unsigned int t);
 	void DrawSky(IGameWordContex* p, unsigned int t);
-	void DrawRangeMesh(IGameWordContex* p, unsigned int t);
+	//void DrawRangeMesh(IGameWordContex* p, unsigned int t);
 
 private:
 	HippoD3d9Device* m_pDevice;

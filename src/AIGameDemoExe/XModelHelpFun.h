@@ -20,6 +20,6 @@ class GameRenderable;
 class sMaterial;
 class sBoundingBox;
 class sBoundingSphere;
-void FillRenderableMeshWithXFile(const char* fn, IDirect3DDevice9* device, ID3DXMesh** pMesh, std::vector<sMaterial*>* pMats);
+void FillRenderableMeshWithXFile(const char* fn, IDirect3DDevice9* device, ID3DXMesh** pMesh);
 bool ComputeBoundingBox(ID3DXMesh* mesh, sBoundingBox* box);
 bool ComputeBoundingSphere(ID3DXMesh* mesh, sBoundingSphere* sphere);

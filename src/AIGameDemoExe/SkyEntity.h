@@ -77,6 +77,7 @@ public:
 	~SkyEntity();
 
 	SkyRenderable* GetRenderable(){ return m_pRenderable; }
+	void Render(unsigned int escapeTime);
 protected:
 	SkyRenderable* m_pRenderable;
 	void InitRenderable();
@@ -124,6 +125,7 @@ public :
 	SkyDoomEntity();
 	~SkyDoomEntity();
 	SkyDoomRenderable* GetRenderable(){ return m_pRenderable; }
+	void Render(unsigned int escapeTime);
 protected:
 	
 	SkyDoomRenderable* m_pRenderable;

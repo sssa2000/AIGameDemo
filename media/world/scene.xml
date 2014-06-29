@@ -1,0 +1,142 @@
+<!-- 本文件使用的旋转是欧拉角表示，yaw是绕竖直向上的y轴旋转的角度，pitch是绕x轴，roll是绕z轴。使用角度，不是弧度!-->
+
+<SceneRoot>
+	<Tower>
+		<range r="110"/>
+		
+		<model>
+			<mesh filename="../media/tower/kdroneminingtower_auv512.x" />
+			<texture filename="../media/tower/kdroneminingtower_auv512.jpg"/>
+			<fx filename="../media/fx/default_fx.fx"/>
+		</model>
+		
+		<transform>
+			<pos x="322" y="38" z="663"/>
+			<rotate yaw="0" roll="0" pitch="0"/> 
+			<scale x="1" y="1" z="1"/>
+		</transform>
+	</Tower>
+	
+	<Tower>
+		<range r="10"/>
+		
+		<model>
+			<mesh filename="../media/tower/kdroneminingtower_auv512.x" />
+			<texture filename="../media/tower/kdroneminingtower_auv512.jpg"/>
+			<fx filename="../media/fx/default_fx.fx"/>
+		</model>
+		
+		<transform>
+			<pos x="122" y="38" z="123"/>
+			<rotate yaw="0" roll="0" pitch="0"/> 
+			<scale x="1" y="1" z="1"/>
+		</transform>
+	</Tower>
+	
+	<SceneObj>
+		<model>
+			<mesh filename="../media/sceneobj/ct_cactus_auv.x" />
+			<texture filename="../media/sceneobj/ct_cactus_auv.tga"/>
+			<fx filename="../media/fx/default_fx.fx"/>
+		</model>
+		
+		<transform>
+			<pos x="22" y="0" z="123"/>
+			<rotate yaw="0" roll="0" pitch="0"/> 
+			<scale x="1" y="1" z="1"/>
+		</transform>
+	</SceneObj>
+	
+	<SceneObj>
+		<model>
+			<mesh filename="../media/sceneobj/CTFeature_tex1.x" />
+			<texture filename="../media/sceneobj/CTFeature_tex1.png"/>
+			<fx filename="../media/fx/default_fx.fx"/>
+		</model>
+		
+		<transform>
+			<pos x="212" y="0" z="83"/>
+			<rotate yaw="0" roll="0" pitch="0"/> 
+			<scale x="1" y="1" z="1"/>
+		</transform>
+	</SceneObj>
+
+	<SceneObj>
+		<model>
+			<mesh filename="../media/sceneobj/CTFeature_tex12.x" />
+			<texture filename="../media/sceneobj/CTFeature_tex1.png"/>
+			<fx filename="../media/fx/default_fx.fx"/>
+		</model>
+		
+		<transform>
+			<pos x="262" y="0" z="183"/>
+			<rotate yaw="0" roll="0" pitch="0"/> 
+			<scale x="1" y="1" z="1"/>
+		</transform>
+	</SceneObj>
+
+		<SceneObj>
+		<model>
+			<mesh filename="../media/sceneobj/CTFeature_tex13.x" />
+			<texture filename="../media/sceneobj/CTFeature_tex1.png"/>
+			<fx filename="../media/fx/default_fx.fx"/>
+		</model>
+		
+		<transform>
+			<pos x="242" y="0" z="283"/>
+			<rotate yaw="0" roll="0" pitch="0"/> 
+			<scale x="1" y="1" z="1"/>
+		</transform>
+	</SceneObj>
+	
+	<SceneObj>
+		<model>
+			<mesh filename="../media/sceneobj/CTFeature_tex14.x" />
+			<texture filename="../media/sceneobj/CTFeature_tex1.png"/>
+			<fx filename="../media/fx/default_fx.fx"/>
+		</model>
+		
+		<transform>
+			<pos x="222" y="0" z="383"/>
+			<rotate yaw="0" roll="0" pitch="0"/> 
+			<scale x="1" y="1" z="1"/>
+		</transform>
+	</SceneObj>	
+
+	<SceneObj>
+		<model>
+			<mesh filename="../media/sceneobj/ct_pine1_auv.x" />
+			<texture filename="../media/sceneobj/ct_pine1_auv.tga"/>
+			<fx filename="../media/fx/default_fx.fx"/>
+		</model>
+		
+		<transform>
+			<pos x="522" y="0" z="443"/>
+			<rotate yaw="0" roll="0" pitch="0"/> 
+			<scale x="1" y="1" z="1"/>
+		</transform>
+	</SceneObj>	
+	
+	<SceneObj>
+		<model>
+			<mesh filename="../media/sceneobj/ct_pine1_auv2.x" />
+			<texture filename="../media/sceneobj/ct_pine1_auv.tga"/>
+			<fx filename="../media/fx/default_fx.fx"/>
+		</model>
+		
+		<transform>
+			<pos x="582" y="0" z="493"/>
+			<rotate yaw="0" roll="0" pitch="0"/> 
+			<scale x="1" y="1" z="1"/>
+		</transform>
+	</SceneObj>		
+	<StartPoint>
+	</StartPoint>
+	
+	<EndPoint>
+	</EndPoint>
+	
+
+	
+	
+</SceneRoot>

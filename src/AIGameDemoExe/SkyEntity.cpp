@@ -26,7 +26,11 @@ void SkyEntity::InitRenderable()
 	m_pRenderable = new SkyRenderable(this);
 }
 
-
+void SkyEntity::Render(unsigned int escapeTime)
+{
+	auto d3ddevice = Globals::GetDevice();
+	m_pRenderable->Render(d3ddevice, escapeTime);
+}
 
 //////////////////////////////////////////////////////////////////////////
 //Ìì¿ÕºÐµÄ¶¥µã
@@ -272,7 +276,11 @@ void SkyDoomEntity::InitRenderable()
 {
 	m_pRenderable = new SkyDoomRenderable(this, 50, 50, 30);
 }
-
+void SkyDoomEntity::Render(unsigned int escapeTime)
+{
+	auto d3ddevice = Globals::GetDevice();
+	m_pRenderable->Render(d3ddevice, escapeTime);
+}
 
 //////////////////////////////////////////////////////////////////////////
 

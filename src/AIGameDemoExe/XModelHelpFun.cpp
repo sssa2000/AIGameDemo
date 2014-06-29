@@ -39,7 +39,7 @@ bool ComputeBoundingBox(ID3DXMesh* mesh, sBoundingBox* box)
 	return true;
 }
 
-void FillRenderableMeshWithXFile(const char* fn, IDirect3DDevice9* device, ID3DXMesh** pMesh,std::vector<sMaterial*>* pMats)
+void FillRenderableMeshWithXFile(const char* fn, IDirect3DDevice9* device, ID3DXMesh** pMesh)
 {
 	LPD3DXBUFFER pD3DXMtrlBuffer;
 	DWORD g_dwNumMaterials;
@@ -48,35 +48,5 @@ void FillRenderableMeshWithXFile(const char* fn, IDirect3DDevice9* device, ID3DX
 		&pD3DXMtrlBuffer, NULL, &g_dwNumMaterials,
 		pMesh);
 
-	//copy material
-	if (!pMats)
-		return;
-
-	D3DXMATERIAL* d3dxMaterials = (D3DXMATERIAL*)pD3DXMtrlBuffer->GetBufferPointer();
-	for (size_t i = 0; i<g_dwNumMaterials; ++i)
-	{
-		sMaterial* p = new sMaterial(d3dxMaterials[i]);
-		if (d3dxMaterials[i].pTextureFilename != NULL &&
-			lstrlenA(d3dxMaterials[i].pTextureFilename) > 0)
-		{
-			std::string texfilename = d3dxMaterials[i].pTextureFilename;
-			IDirect3DTexture9* pTex = 0;
-			HippoFilePath texpath1(fn);
-			HippoFilePath texpath2(d3dxMaterials[i].pTextureFilename);
-			if (!texpath2.isFileExist())
-			{
-				std::string f = "";
-				texpath2.GetFileNameWithExtension(f);
-				texfilename = texpath1.GetFileDir();
-				texfilename += f;
-
-			}
-
-			D3DXCreateTextureFromFileA(device,
-				texfilename.c_str(),
-				&p->m_d3d_texture);
-		}
-		pMats->push_back(p);
-	}
 	
 }

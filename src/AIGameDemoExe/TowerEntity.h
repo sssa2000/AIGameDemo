@@ -15,6 +15,7 @@
 #include "GameEntity.h"
 #include "TowerProxyImpl.h"
 #include <memory>
+#include "EntityFactory.h"
 
 class ITowerProxy;
 class TowerRenderable;
@@ -27,14 +28,15 @@ public:
 	friend class EntityFactory;
 	friend class TowerProxyImpl;
 
-	TowerEntity(float range);
+	TowerEntity();
 	~TowerEntity();
 	virtual void  Update(unsigned int escapeTime);
 	float GetRange(){ return m_range; }
 	ITowerProxy* GetProxy(){ return (ITowerProxy*)m_pLogic.get(); }
 	TowerRenderableCon* GetRenderable(){ return &m_pRenderables; }
+	void Render(unsigned int escapeTime);
 protected:
-	void InitRenderable();
+	void InitRenderable(TowerCreateInfo& towerInfo);
 	bool IsPointInRange(const D3DXVECTOR3* point);
 	std::tr1::shared_ptr<TowerProxyImpl> m_pLogic;
 	float m_range;

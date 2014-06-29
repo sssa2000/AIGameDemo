@@ -12,7 +12,9 @@
 #include "FreeImage.h"
 #include "ErrReport.h"
 #include "CameraBase.h"
+#include <memory>
 #include <algorithm>
+#include "IGameWordContex.h"
 
 
 
@@ -41,7 +43,11 @@ void TerrainEntity::InitRenderable()
 	m_pRenderable->LoadFromFile();
 	SetPostion(0, 0, 0);
 }
-
+void TerrainEntity::Render(unsigned int escapeTime)
+{
+	auto d3ddevice = Globals::GetDevice();
+	m_pRenderable->Render(d3ddevice, escapeTime);
+}
 int TerrainRenderable::GetVertexNum()
 {
 	return terrain_w*terrain_h;
@@ -60,14 +66,18 @@ TerrainRenderable::TerrainRenderable(GameEntity* parent)
 {
 	m_parent = parent;
 	D3DXMatrixIdentity(&m_local_matrix);
+	m_pTextrue[0] = 0;
+	m_pTextrue[1] = 0;
 }
 TerrainRenderable::~TerrainRenderable()
 {
 	if (m_pHeightField)
 		delete m_pHeightField;
-
-	m_pTextrue[0]->Release();
-	m_pTextrue[1]->Release();
+	if (m_pTextrue[0])
+		m_pTextrue[0]->Release();
+	
+	if (m_pTextrue[1])
+		m_pTextrue[1]->Release();
 
 	auto itr = m_all_patch.begin();
 	while (itr != m_all_patch.end())
@@ -114,15 +124,16 @@ void TerrainRenderable::Render(HippoD3d9Device* pdevice, unsigned int escapeTime
 	v = m_fxhandle->SetTexture("g_NormalTex", m_pTextrue[2]);
 
 	//tower info
-	std::vector<GameEntity*>* alltowers = Globals::GetWorld()->GetAllTower();
-	auto itr = alltowers->begin();
+	const GameEntityPtrCon& con = Globals::GetWorld()->GetAllTower();
+	GameEntityPtrCon::const_iterator itr = con.begin();
+	GameEntityPtrCon::const_iterator itrend = con.end();
 	D3DXVECTOR4 tmp[2];
 	int idx = 0;
-	while (itr != alltowers->end())
+	while (itr != itrend)
 	{
-		TowerEntity* pEntity = (TowerEntity*)(*itr);
-		D3DXVECTOR3* pos=pEntity->GetPos();
-		float r=pEntity->GetRange();
+		auto towerptr = (TowerEntity*)itr->get();
+		D3DXVECTOR3* pos = towerptr->GetPos();
+		float r = towerptr->GetRange();
 		tmp[idx] = D3DXVECTOR4(pos->x, pos->y, pos->z, r);
 		++itr;
 		++idx;
@@ -130,10 +141,8 @@ void TerrainRenderable::Render(HippoD3d9Device* pdevice, unsigned int escapeTime
 	v=m_fxhandle->SetVectorArray("towerInfo", tmp, 2);
 
 	//robot info
-	auto robot=Globals::GetWorld()->GetAllRobots()->at(0);
-	D3DXVECTOR4 robotpos = *robot->GetPos();
-	robotpos.y = robotpos.z;
-	robotpos.z = 2;
+	GameEntity* robot=Globals::GetWorld()->GetAllRobots().at(0).get();
+	D3DXVECTOR4 robotpos = D3DXVECTOR4(robot->GetPos()->x, robot->GetPos()->z, 2, 1);
 	v=m_fxhandle->SetVector("robotInfo", &robotpos);
 
 	d3d9device->SetStreamSource(0, m_pVB, 0, sizeof(TerrainVertex));
@@ -504,13 +513,13 @@ void TerrainRenderablePlane::Render(HippoD3d9Device* pdevice, unsigned int escap
 	//v = m_fxhandle->SetTexture("g_MeshTexture", m_pTextrue[0]);
 
 	//tower info
-	std::vector<GameEntity*>* alltowers = Globals::GetWorld()->GetAllTower();
-	auto itr = alltowers->begin();
+	auto alltowers = Globals::GetWorld()->GetAllTower();
+	auto itr = alltowers.begin();
 	D3DXVECTOR4 tmp[2];
 	int idx = 0;
-	while (itr != alltowers->end())
+	while (itr != alltowers.end())
 	{
-		TowerEntity* pEntity = (TowerEntity*)(*itr);
+		TowerEntity* pEntity = (TowerEntity*)((*itr).get());
 		D3DXVECTOR3* pos = pEntity->GetPos();
 		float r = pEntity->GetRange();
 		tmp[idx] = D3DXVECTOR4(pos->x, pos->y, pos->z, r);
@@ -520,11 +529,15 @@ void TerrainRenderablePlane::Render(HippoD3d9Device* pdevice, unsigned int escap
 	v = m_fxhandle->SetVectorArray("towerInfo", tmp, 2);
 
 	//robot info
-	auto robot = Globals::GetWorld()->GetAllRobots()->at(0);
-	D3DXVECTOR4 robotpos = *robot->GetPos();
-	robotpos.y = robotpos.z;
-	robotpos.z = 12;
-	v = m_fxhandle->SetVector("robotInfo", &robotpos);
+	auto robots = Globals::GetWorld()->GetAllRobots();
+	if (!robots.empty())
+	{
+		auto player = robots.at(0).get();
+		D3DXVECTOR3* pos = player->GetPos();
+		D3DXVECTOR4 robotpos = D3DXVECTOR4(pos->x, pos->z, 12.f,1.0f);
+		v = m_fxhandle->SetVector("robotInfo", &robotpos);
+	}
+
 
 	d3d9device->SetStreamSource(0, m_pVB, 0, sizeof(TerrainVertex));
 	d3d9device->SetVertexDeclaration(m_pVertexDecl);

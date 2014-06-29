@@ -8,18 +8,10 @@ RobotRenderable::RobotRenderable(GameEntity* parent):
 GameRenderable(parent)
 {
 	m_d3d_texture=0;
-	m_local_matrix._11 = 0.1f;
-	m_local_matrix._22 = 0.1f;
-	m_local_matrix._33 = 0.1f;
-
-
 	BuildRenderable(parent);
 }
 RobotRenderable::~RobotRenderable()
 {
-	if (m_arrow_renderable)
-		delete m_arrow_renderable;
-	m_arrow_renderable = 0;
 
 	m_d3d_texture->Release();
 }
@@ -27,26 +19,13 @@ RobotRenderable::~RobotRenderable()
 void RobotRenderable::BuildRenderable(GameEntity* parent)
 {
 	auto d3d9device = Globals::GetDevice()->GetDeviceD3D9();
-	FillRenderableMeshWithXFile("../media/btankcruiser_tex.x", d3d9device, &m_pD3dxMesh,0);
+	FillRenderableMeshWithXFile("../media/btankcruiser_tex.x", d3d9device, &m_pD3dxMesh);
 
 	m_fxhandle=Globals::GetFxManager()->RequireEffectFormFile("../media/fx/default_fx.fx");
 	m_fxhandle->SetTechnique("RenderSceneWithTexture1Light");
 
 	HRESULT v=D3DXCreateTextureFromFileA(d3d9device,"../media/btankcruiser_tex.png",&m_d3d_texture);
 
-	m_arrow_renderable = new GameRenderable(parent);
-	FillRenderableMeshWithXFile("../media/arrow.x", d3d9device,&m_arrow_renderable->m_pD3dxMesh,&(m_arrow_renderable->m_mats));
-	//箭头需要显示在机器人头顶上
-	D3DXVECTOR3 offset(0, 2, 0);
-	D3DXVECTOR3 rot_center(0.5, 0.5, 0.5);
-	D3DXVECTOR3 rot_aix(0, 1, 0);
-	D3DXQUATERNION quat;
-	D3DXQuaternionRotationAxis(&quat, &rot_aix, D3DXToRadian(180));
-	D3DXMatrixTransformation(&m_arrow_renderable->m_local_matrix,
-		0, 0, 0, //scale
-		0, &quat,	 //rotation
-		&offset);//trans
-	ComputeBoundingSphere(m_pD3dxMesh, &m_bs);
 }
 
 
@@ -72,13 +51,11 @@ void RobotRenderable::Render(HippoD3d9Device* pdevice, unsigned int escapeTime)
 
 	UINT iPass, totalPasses;
 	m_fxhandle->Begin(&totalPasses, 0);
-	//d3d9device->SetTransform(D3DTS_WORLD, &tmpMatrix);
 
 	for (iPass = 0; iPass < totalPasses; iPass++)
 	{
 		m_fxhandle->BeginPass(iPass);
 		m_pD3dxMesh->DrawSubset(0);
-		m_arrow_renderable->Render(pdevice,escapeTime);
 		m_fxhandle->EndPass();
 	}
 

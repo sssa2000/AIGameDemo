@@ -75,7 +75,7 @@ public:
 	friend class TerrainPatch;
 
 	TerrainRenderable(GameEntity* parent);
-	~TerrainRenderable();
+	virtual ~TerrainRenderable();
 	virtual void Render(HippoD3d9Device* pdevice, unsigned int escapeTime);
 	TerrainPatch* CreatePatch(float x,float y,float z,float range);
 	void ReleasePatch(TerrainPatch* p);
@@ -129,7 +129,7 @@ public:
 	TerrainEntity();
 	~TerrainEntity();
 	void InitRenderable();
-
+	void Render(unsigned int escapeTime);
 	TerrainRenderable* GetRenderable(){ return m_pRenderable; }
 	float GetHeight(float x,float z){return m_pRenderable->GetTerrainHeight(x,z);}
 protected:

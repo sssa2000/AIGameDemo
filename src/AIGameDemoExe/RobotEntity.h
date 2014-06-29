@@ -35,6 +35,7 @@ public:
 	virtual void SetDirection(float angle);
 	virtual float GetDirection();
 	GameRenderableCon* GetRenderable(){ return &m_pRenderables; }
+	void Render(unsigned int escapeTime);
 protected:
 	void ReCalcBoundingVol();
 	void InitRenderable();
@@ -43,7 +44,6 @@ protected:
 	std::tr1::shared_ptr<RobotProxyImpl> m_pLogic;
 	D3DXVECTOR3 m_YawPitchRoll;
 	float m_v;
-	TerrainPatch* m_pTerrainPatch;
 
 private:
 };

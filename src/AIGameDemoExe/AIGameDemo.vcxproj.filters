@@ -144,9 +144,6 @@
     <ClInclude Include="TowerProxyImpl.h">
       <Filter>Game\Scene\Tower</Filter>
     </ClInclude>
-    <ClInclude Include="WorldSerializer.h">
-      <Filter>Game\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="GameRenderable.h">
       <Filter>Game\Scene</Filter>
     </ClInclude>
@@ -343,9 +340,6 @@
     </ClCompile>
     <ClCompile Include="TowerRenderable.cpp">
       <Filter>Game\Scene\Tower</Filter>
-    </ClCompile>
-    <ClCompile Include="WorldSerializer.cpp">
-      <Filter>Game\Scene</Filter>
     </ClCompile>
     <ClCompile Include="GameRenderable.cpp">
       <Filter>Game\Scene</Filter>

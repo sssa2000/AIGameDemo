@@ -79,12 +79,22 @@ public:
 	{
 
 	}
+	int OnKeyDown(unsigned int key)
+	{
+		SHORT bCtrlDown = GetKeyState(VK_CONTROL);
+		if (key == VK_F8)
+		{
+			//reload scene from file
+			Globals::GetWorld()->LoadFromFile("../media/world/scene.xml");
+		}
+		return 1;
+	}
 
 	void InitApp()
 	{
 		
 		Globals::Init(GetDevice(), ginfo.dllfilename.c_str(), m_pWnd->GetWidth(), m_pWnd->GetHeight(),m_pWnd->GetHwnd());
-		Globals::GetWorld()->InitWorld();
+		Globals::GetWorld()->LoadFromFile("../media/world/scene.xml");
 
 		Globals::SwitchCameraAndControl(ginfo.aimode);
 	
@@ -103,6 +113,9 @@ public:
 
 		GameKeyBoardControl* contorl=Globals::GetKeyBoardControl();
 		m_pWnd->RegisterKeyDownEvent(contorl->GetKeyDownCallback());
+		
+		KeyCallback kcb = bind(&TankGameExe::OnKeyDown, this, std::placeholders::_1);
+		m_pWnd->RegisterKeyDownEvent(kcb);
 
 
 		m_pDevice->GetDeviceD3D9()->SetTransform(D3DTS_PROJECTION, Globals::GetRender()->GetProjMatrix());

@@ -1,92 +1,67 @@
 #include "GameRenderable.h"
 #include "GameEntity.h"
-
 #include "HippoD3d9Device.h"
+#include "Globals.h"
+#include "XModelHelpFun.h"
+#include "TankGameRender.h"
+#include <d3dx9.h>
+#include <string>
+#include "ErrReport.h"
+#include "EntityFactory.h"
 GameRenderable::GameRenderable(GameEntity* parent)
 {
 	m_parent = parent;
-	D3DXMatrixIdentity(&m_local_matrix);
+	
 }
 GameRenderable::~GameRenderable()
 {
-	if (m_pD3dxMesh)
-	{
-		m_pD3dxMesh->Release();
-		m_pD3dxMesh = 0;
-	}
 
-	for (size_t i = 0; i < m_mats.size();++i)
-	{
-		delete m_mats[i];
-	}
-	m_mats.clear();
 }
 void GameRenderable::Render(HippoD3d9Device* pdevice, unsigned int t)
 {
 	auto d3d9device = pdevice->GetDeviceD3D9();
-	D3DXMATRIX tmpMatrix;
-	D3DXMatrixMultiply(&tmpMatrix, &m_local_matrix,m_parent->GetWorldTransform());
 
-	d3d9device->SetTransform(D3DTS_WORLD, &tmpMatrix);
+	//world matrix
+	HRESULT v = m_fxhandle->SetMatrix("g_mWorld", m_parent->GetWorldTransform());
+
+	auto proj = Globals::GetRender()->GetProjMatrix();
+	auto view = Globals::GetRender()->GetViewMatrix();
+	D3DXMATRIX vp = (*view)*(*proj);
+	v = m_fxhandle->SetMatrix("g_mViewProjection", &vp);
+
+	//material
+	D3DXCOLOR vWhite = D3DXCOLOR(1, 1, 1, 1);
+	v = m_fxhandle->SetValue("g_MaterialDiffuseColor", &vWhite, sizeof(D3DXCOLOR));
+
+	//texture
+	v = m_fxhandle->SetTexture("g_MeshTexture", m_d3d_texture.get());
+
+	UINT iPass, totalPasses;
+	m_fxhandle->Begin(&totalPasses, 0);
+
+	for (iPass = 0; iPass < totalPasses; iPass++)
+	{
+		m_fxhandle->BeginPass(iPass);
+		m_pD3dxMesh->DrawSubset(0);
+		m_fxhandle->EndPass();
+	}
+
+	m_fxhandle->End();
+}
+
+void GameRenderable::LoadFromFile(SceneObjCreateInfo& sceneobj)
+{
+	auto device = Globals::GetDevice()->GetDeviceD3D9();
 	
-	for (size_t i = 0; i < m_mats.size(); ++i)
-	{
-		d3d9device->SetMaterial(m_mats.at(i)->m_d3d_mat);
-		d3d9device->SetTexture(0, m_mats.at(i)->m_d3d_texture);
+	ID3DXMesh* meshptr = 0;
+	FillRenderableMeshWithXFile(sceneobj.sobj.meshFilename.c_str(), device, &meshptr);
+	m_pD3dxMesh.reset(meshptr);
 
-		m_pD3dxMesh->DrawSubset(i);
-	}
+	IDirect3DTexture9* textureptr = 0;
+	HRESULT v = D3DXCreateTextureFromFileA(device, sceneobj.sobj.textureFilename.at(0).c_str(), &textureptr);
+	m_d3d_texture.reset(textureptr);
+
+	m_fxhandle = Globals::GetFxManager()->RequireEffectFormFile(sceneobj.sobj.fxFilename.c_str());
+	m_fxhandle->SetTechnique("RenderSceneWithTexture1Light");
+	
 }
-void GameRenderable::CreateDefaultMat()
-{
-	D3DXMATERIAL m;
-	m.MatD3D.Ambient.r = 0.5;
-	m.MatD3D.Ambient.g = 0.5;
-	m.MatD3D.Ambient.b = 0.5;
-	m.MatD3D.Ambient.a = 0.5;
-
-	m.MatD3D.Diffuse.r = 1;
-	m.MatD3D.Diffuse.g = 1;
-	m.MatD3D.Diffuse.b = 1;
-	m.MatD3D.Diffuse.a = 1;
-
-	m.MatD3D.Emissive.r = 0.5;
-	m.MatD3D.Emissive.g = 0.5;
-	m.MatD3D.Emissive.b = 0.5;
-	m.MatD3D.Emissive.a = 0.5;
-
-	m.MatD3D.Specular.r = 1;
-	m.MatD3D.Specular.g = 1;
-	m.MatD3D.Specular.b = 1;
-	m.MatD3D.Specular.a = 1;
-
-	m.MatD3D.Power= 128;
-	sMaterial* p = new sMaterial(m);
-	m_mats.push_back(p);
-}
-//////////////////////////////////////////////////////////////////////////
-
-sMaterial::sMaterial(D3DXMATERIAL& pmat)
-{
-	m_d3d_mat = 0;
-	m_d3d_texture = 0;
-
-	m_d3d_mat = new D3DMATERIAL9;
-	*m_d3d_mat = pmat.MatD3D;
-	m_d3d_mat->Ambient = m_d3d_mat->Diffuse;
-}
-sMaterial::~sMaterial()
-{
-	if (m_d3d_texture)
-	{
-		m_d3d_texture->Release();
-		m_d3d_texture = 0;
-	}
-
-	if (m_d3d_texture)
-	{
-		m_d3d_texture->Release();
-		m_d3d_texture = 0;
-	}
-}
-

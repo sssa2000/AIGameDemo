@@ -16,7 +16,7 @@
 
 float4x4 g_mWorld;                  // World matrix for object
 float4x4 g_mViewProjection;    // View * Projection matrix
-
+float range=1.0f;
 //--------------------------------------------------------------------------------------
 // Texture samplers
 //--------------------------------------------------------------------------------------
@@ -54,8 +54,9 @@ VS_OUTPUT RenderSceneVS( float4 vPos : POSITION,
 {
     VS_OUTPUT Output;
     
-    // Transform the position from object space to homogeneous projection space
-	float4 worldPosition = mul(vPos, g_mWorld);
+	float4 worldPosition =vPos * float4(range ,0.1f,range ,1); 
+	worldPosition=mul(worldPosition, g_mWorld);
+	
     Output.Position = mul(worldPosition, g_mViewProjection);
     Output.WorldPos=worldPosition;
 	
@@ -82,38 +83,8 @@ struct PS_OUTPUT
 //--------------------------------------------------------------------------------------
 float4 RenderScenePS( VS_OUTPUT In) : COLOR0
 { 
-/*
-	float3 normal = tex2D(NormalTexSampler,In.TextureUV1.xy).xyz * 2.0 - 1.0;
-	
-	float3 color_0 = tex2D(DiffuseTexSampler,In.TextureUV2.xy).xyz * In.TextureUV3.x;
-	float3 color_1 = tex2D(DetailTexSampler,In.TextureUV2.xy).xyz * In.TextureUV3.y;
-	float f= dot(normal.xzy,In.ViewVecWS.xyz);
-	float3 res = (color_0 + color_1) * f;
-    //return float4(res,1);
-	
-	
-	//draw robot shadow on terrain
-	float f1=length(In.WorldPos.xz-robotInfo.xy);
-	float t1=(f1-robotInfo.z);
-	if(t1<0)
-		res.xyz=float3(0.2,0.3,0.3);
-		
-	float factor=length(In.WorldPos.xz-towerInfo[0].xz);
-	float t=abs(factor-towerInfo[0].w);
-	if(t<0.1f)
-		res.g=0.9f;
-	else
-	{
-		factor=length(In.WorldPos.xz-towerInfo[1].xz);
-	t=abs(factor-towerInfo[1].w);
-	if(t<0.1f)
-		res.g=0.9f;
-	}
-
-    return float4(res,1);
-	*/
-	
-	 return float4(1,1,0,1);
+	float4 t = tex2D(DiffuseTexSampler,In.TextureUV1.xy);
+	return t;
 }
 
 
