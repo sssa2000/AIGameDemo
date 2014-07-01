@@ -27,7 +27,7 @@ D3DPRESENT_PARAMETERS& HippoD3d9Device::FillD3dParameter(int w, int h, bool bWin
 	m_d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;// D3DSWAPEFFECT_FLIPEX;// D3DSWAPEFFECT_DISCARD;
 	m_d3dpp.BackBufferFormat = D3DFMT_X8R8G8B8;
 	m_d3dpp.EnableAutoDepthStencil = TRUE;
-	m_d3dpp.AutoDepthStencilFormat = D3DFMT_D16;
+	m_d3dpp.AutoDepthStencilFormat = D3DFMT_D24S8;
 	m_d3dpp.BackBufferHeight = m_height;
 	m_d3dpp.BackBufferWidth = m_width;
 	m_d3dpp.BackBufferCount = 3;

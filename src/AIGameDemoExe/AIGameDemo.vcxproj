@@ -141,6 +141,7 @@
     <ClInclude Include="HippoAppBase\HippoWindow.h" />
     <ClInclude Include="HippoAppBase\Win32MsgUtil.h" />
     <ClInclude Include="IGameWordContex.h" />
+    <ClInclude Include="QuadRenderable.h" />
     <ClInclude Include="RobotEntity.h" />
     <ClInclude Include="RobotProxyImpl.h" />
     <ClInclude Include="RobotRenderable.h" />
@@ -202,6 +203,7 @@
     <ClCompile Include="HippoAppBase\HippoWindow.cpp" />
     <ClCompile Include="HippoAppBase\Win32MsgUtil.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="QuadRenderable.cpp" />
     <ClCompile Include="RobotEntity.cpp" />
     <ClCompile Include="RobotProxyImpl.cpp" />
     <ClCompile Include="RobotRenderable.cpp" />
