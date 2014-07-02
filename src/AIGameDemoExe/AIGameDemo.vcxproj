@@ -20,7 +20,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v100</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -146,9 +146,11 @@
     <ClInclude Include="RobotProxyImpl.h" />
     <ClInclude Include="RobotRenderable.h" />
     <ClInclude Include="SkyEntity.h" />
+    <ClInclude Include="StartPoint.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="TankGameRender.h" />
     <ClInclude Include="TankGameWorldImpl.h" />
+    <ClInclude Include="TargetPoint.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TerrainEntity.h" />
     <ClInclude Include="thirdlib\tixml\tinystr.h" />
@@ -208,9 +210,11 @@
     <ClCompile Include="RobotProxyImpl.cpp" />
     <ClCompile Include="RobotRenderable.cpp" />
     <ClCompile Include="SkyEntity.cpp" />
+    <ClCompile Include="StartPoint.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="TankGameRender.cpp" />
     <ClCompile Include="TankGameWorldImpl.cpp" />
+    <ClCompile Include="TargetPoint.cpp" />
     <ClCompile Include="TerrainEntity.cpp" />
     <ClCompile Include="thirdlib\tixml\tinystr.cpp" />
     <ClCompile Include="thirdlib\tixml\tinyxml.cpp" />

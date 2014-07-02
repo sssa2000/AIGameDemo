@@ -47,5 +47,5 @@ protected:
 	//patch quad
 	std::unique_ptr<QuadMesh> m_quad_mesh;
 	EffHandle m_QuadFxhandle;
-	std::unique_ptr<IDirect3DTexture9> m_range_texture;
+	std::shared_ptr<IDirect3DTexture9> m_range_texture;
 };

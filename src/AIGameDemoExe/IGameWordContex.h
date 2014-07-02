@@ -18,6 +18,8 @@ class GameEntity;
 class TerrainEntity;
 class SkyEntity;
 class SkyDoomEntity;
+class StartPoint;
+class TargetPoint;
 
 typedef std::shared_ptr<GameEntity> GameEntityPtr;
 typedef std::vector<GameEntityPtr> GameEntityPtrCon;
@@ -25,6 +27,8 @@ typedef std::vector<GameEntityPtr> GameEntityPtrCon;
 typedef std::shared_ptr<TerrainEntity> TerrainEntityPtr;
 typedef std::shared_ptr<SkyDoomEntity> SkyDoomEntityPtr;
 
+typedef std::shared_ptr<StartPoint> StartPointptr;
+typedef std::shared_ptr<TargetPoint> Targetptr;
 
 class IGameWordContex:public IGameWorld
 {
@@ -35,6 +39,9 @@ public:
 	virtual const GameEntityPtrCon& GetAllRobots() = 0;
 	virtual const GameEntityPtrCon& GetAllTower() = 0;
 	virtual const GameEntityPtrCon& GetAllSceneObj() = 0;
+
+	virtual const StartPointptr& GetStartPointPtr()=0;
+	virtual const Targetptr& GetTargetPointPtr()=0;
 	virtual TerrainEntityPtr GetFloor() = 0;
 	virtual SkyDoomEntityPtr GetSky() = 0;
 	virtual void NotifyGameOver() = 0;

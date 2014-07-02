@@ -16,6 +16,8 @@
 #include "FxEffectManager.h"
 #include "FPSCamera.h"
 #include "SkyEntity.h"
+#include "StartPoint.h"
+#include "TargetPoint.h"
 TankGameRender::TankGameRender(HippoD3d9Device* pDevice)
 {
 	m_pDevice=pDevice;
@@ -74,7 +76,11 @@ void TankGameRender::DrawSceneObj(IGameWordContex* p, unsigned int t)
 	}
 }
 
-
+void TankGameRender::DrawStartEnd(IGameWordContex* p, unsigned int t)
+{
+	p->GetStartPointPtr()->Render(t);
+	//p->GetStartPointPtr()->Render(t);
+}
 void TankGameRender::Render(IGameWordContex* p,unsigned int t)
 {
 	DrawSky(p, t);
@@ -82,7 +88,7 @@ void TankGameRender::Render(IGameWordContex* p,unsigned int t)
 	DrawTanks(p, t);
 	DrawTowers(p, t);
 	DrawSceneObj(p, t);
-
+	DrawStartEnd(p, t);
 }
 void TankGameRender::DrawSky(IGameWordContex* p, unsigned int t)
 {

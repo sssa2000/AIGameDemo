@@ -129,11 +129,14 @@
 			<rotate yaw="0" roll="0" pitch="0"/> 
 			<scale x="1" y="1" z="1"/>
 		</transform>
-	</SceneObj>		
+	</SceneObj>
+	
 	<StartPoint>
+		<Pos x="23" z="112"/>
 	</StartPoint>
 	
 	<EndPoint>
+		<Pos x="423" z="212"/>
 	</EndPoint>
 	
 

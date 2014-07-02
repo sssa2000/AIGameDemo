@@ -39,6 +39,9 @@ struct SceneObjCreateInfo
 	D3DXMATRIX worldTransform;
 };
 
+class StartPoint;
+class TargetPoint;
+
 class EntityFactory
 {
 public:
@@ -48,6 +51,8 @@ public:
 	TowerEntity* CreateTower(TowerCreateInfo& towerInfo);
 	TerrainEntity* CreateFloor();
 	GameEntity* CreateSceneObj(SceneObjCreateInfo& objinfo);
+	StartPoint* CreateStartPoint(float x, float y);
+	TargetPoint* CreateTargetPoint(float x, float y);
 private:
 	GameEntity* CreateFromXFile(const char* s);
 	HippoD3d9Device* m_pDevice;
