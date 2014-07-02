@@ -8,7 +8,7 @@ RobotRenderable::RobotRenderable(GameEntity* parent):
 GameRenderable(parent)
 {
 	m_d3d_texture=0;
-	BuildRenderable(parent);
+	
 }
 RobotRenderable::~RobotRenderable()
 {
@@ -32,9 +32,14 @@ void RobotRenderable::BuildRenderable(GameEntity* parent)
 void RobotRenderable::Render(HippoD3d9Device* pdevice, unsigned int escapeTime)
 {
 	CalcPos(escapeTime);
+	auto device = Globals::GetDevice()->GetDeviceD3D9();
 
+	device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	device->SetRenderState(D3DRS_ZWRITEENABLE, true);
+	device->SetRenderState(D3DRS_ZENABLE, true);
+	device->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
 	//world matrix
-	HRESULT v=m_fxhandle->SetMatrix("g_mWorld", &m_RobotRenderableMatrix);
+	HRESULT v = m_fxhandle->SetMatrix("g_mWorld", &m_RobotRenderableMatrix);
 
 	//wvp matrix
 	auto proj = Globals::GetRender()->GetProjMatrix();
@@ -68,12 +73,16 @@ void RobotRenderable::Render(HippoD3d9Device* pdevice, unsigned int escapeTime)
 void RobotRenderable::CalcPos(unsigned int escapet)
 {
 	D3DXMATRIX* m1=m_parent->GetWorldTransform();
-	D3DXMatrixMultiply(&m_RobotRenderableMatrix, &m_local_matrix, m_parent->GetWorldTransform());
-
-	//m_RobotRenderableMatrix = *m1;
+	//D3DXMatrixMultiply(&m_RobotRenderableMatrix, &m_local_matrix, m_parent->GetWorldTransform());
+	const float fly_height = 15.f;
+	m_RobotRenderableMatrix = *m1;
 	DWORD t=timeGetTime();
-	m_RobotRenderableMatrix._42 += 1.6f*sin(0.1f*D3DXToRadian(t));
-
+	m_RobotRenderableMatrix._42 = fly_height  + 1.6f*sin(0.1f*D3DXToRadian(t));
+	
+	//scale it
+	m_RobotRenderableMatrix._11 = 0.1f;
+	m_RobotRenderableMatrix._22 = 0.1f;
+	m_RobotRenderableMatrix._33 = 0.1f;
 }
 
 void RobotRenderable::LoadFromFile()

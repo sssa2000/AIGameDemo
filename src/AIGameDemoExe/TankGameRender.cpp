@@ -39,14 +39,7 @@ void TankGameRender::Update(unsigned int escapeTime)
 }
 void TankGameRender::DrawTanks(IGameWordContex* p, unsigned int t)
 {
-	auto alltanks = p->GetAllRobots();
-	auto itr=alltanks.begin();
-	while (itr!=alltanks.end())
-	{
-		auto pEntity = (*itr);
-		pEntity->Render(t);
-		++itr;
-	}
+	p->GetPlayer()->Render(t);
 }
 void TankGameRender::DrawTowers(IGameWordContex* p, unsigned int t)
 {

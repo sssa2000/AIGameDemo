@@ -141,7 +141,7 @@ void TerrainRenderable::Render(HippoD3d9Device* pdevice, unsigned int escapeTime
 	v=m_fxhandle->SetVectorArray("towerInfo", tmp, 2);
 
 	//robot info
-	GameEntity* robot=Globals::GetWorld()->GetAllRobots().at(0).get();
+	auto robot=Globals::GetWorld()->GetPlayer();
 	D3DXVECTOR4 robotpos = D3DXVECTOR4(robot->GetPos()->x, robot->GetPos()->z, 2, 1);
 	v=m_fxhandle->SetVector("robotInfo", &robotpos);
 
@@ -186,7 +186,7 @@ void TerrainRenderable::Render(HippoD3d9Device* pdevice, unsigned int escapeTime
 		v = patch_fx->SetValue("g_camera_pos", pos, sizeof(D3DXVECTOR3));
 		
 		
-		UINT iPass, totalPasses;
+		UINT totalPasses;
 		v=patch_fx->Begin(&totalPasses, 0);
 		v = patch_fx->BeginPass(0);
 		v = d3d9device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
@@ -215,7 +215,7 @@ float TerrainRenderable::GetTerrainHeight(float x, float z)
 	float tx=(x+orgX_Offset)/vertex_stride;
 	float tz=(z+orgY_Offset)/vertex_stride;
 	if (m_pHeightField)
-		return m_pHeightField->GetHeight(tx, tz);
+		return (float)m_pHeightField->GetHeight(tx, tz);
 	return 0;
 }
 void TerrainRenderable::MakeVertexBuffer()
@@ -529,14 +529,10 @@ void TerrainRenderablePlane::Render(HippoD3d9Device* pdevice, unsigned int escap
 	v = m_fxhandle->SetVectorArray("towerInfo", tmp, 2);
 
 	//robot info
-	auto robots = Globals::GetWorld()->GetAllRobots();
-	if (!robots.empty())
-	{
-		auto player = robots.at(0).get();
-		D3DXVECTOR3* pos = player->GetPos();
-		D3DXVECTOR4 robotpos = D3DXVECTOR4(pos->x, pos->z, 12.f,1.0f);
-		v = m_fxhandle->SetVector("robotInfo", &robotpos);
-	}
+	auto player = Globals::GetWorld()->GetPlayer();
+	pos = player->GetPos();
+	D3DXVECTOR4 robotpos = D3DXVECTOR4(pos->x, pos->z, 12.f, 1.0f);
+	v = m_fxhandle->SetVector("robotInfo", &robotpos);
 
 
 	d3d9device->SetStreamSource(0, m_pVB, 0, sizeof(TerrainVertex));

@@ -36,7 +36,7 @@ public:
 	virtual void LoadFromFile(const char* f)=0;
 	virtual void Release()=0;
 	virtual void Update(unsigned int escapeTime)=0;
-	virtual const GameEntityPtrCon& GetAllRobots() = 0;
+	virtual const GameEntityPtr& GetPlayer() = 0;
 	virtual const GameEntityPtrCon& GetAllTower() = 0;
 	virtual const GameEntityPtrCon& GetAllSceneObj() = 0;
 
