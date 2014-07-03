@@ -34,10 +34,7 @@ void RobotRenderable::Render(HippoD3d9Device* pdevice, unsigned int escapeTime)
 	CalcPos(escapeTime);
 	auto device = Globals::GetDevice()->GetDeviceD3D9();
 
-	device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-	device->SetRenderState(D3DRS_ZWRITEENABLE, true);
-	device->SetRenderState(D3DRS_ZENABLE, true);
-	device->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
+
 	//world matrix
 	HRESULT v = m_fxhandle->SetMatrix("g_mWorld", &m_RobotRenderableMatrix);
 

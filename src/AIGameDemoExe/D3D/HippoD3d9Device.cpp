@@ -187,3 +187,31 @@ void HippoD3d9Device::SetMaxFPS(unsigned int max_fps)
 	if (max_fps > 0)
 		inv_maxfps = 1000.0 / (double)m_maxfps; 
 }
+
+
+RenderStateHelper::RenderStateHelper(IDirect3DDevice9* device,D3DRENDERSTATETYPE e,DWORD v)
+{
+	device->GetRenderState(e,&m_old_v);
+	device->SetRenderState(e,v);
+	m_pDevice=device;
+	m_e=e;
+
+}
+RenderStateHelper::~RenderStateHelper()
+{
+	m_pDevice->SetRenderState(m_e,m_old_v);
+}
+
+void RenderStateHelper::ResetRenderState(IDirect3DDevice9* device)
+{
+	device->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
+	device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	device->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+	
+	device->SetRenderState(D3DRS_ZENABLE, TRUE);
+	device->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
+	
+	device->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
+	device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+
+}

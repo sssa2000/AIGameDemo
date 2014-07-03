@@ -14,6 +14,27 @@
 #include <d3d9.h>
 #include <d3dx9.h>
 #include <Windows.h>
+class RenderStateHelper
+{
+public:
+	
+	explicit RenderStateHelper(IDirect3DDevice9* device,D3DRENDERSTATETYPE e,DWORD v);
+	~RenderStateHelper();
+	static void ResetRenderState(IDirect3DDevice9* device);
+private:
+	IDirect3DDevice9* m_pDevice;
+	D3DRENDERSTATETYPE m_e;
+	DWORD m_old_v;
+	//DWORD m_new_v;
+};
+
+#define RSH_LINENAME_CAT(name, line) name##line
+#define RSH_LINENAME(name, line) RSH_LINENAME_CAT(name, line)
+
+#define RS_HELP_OBJ(d,e,v) RenderStateHelper RSH_LINENAME(EXIT, __LINE__)(d,e,v)
+
+
+//////////////////////////////////////////////////////////////////////////
 class HippoD3d9Device
 {
 public:

@@ -72,7 +72,7 @@ void TankGameRender::DrawSceneObj(IGameWordContex* p, unsigned int t)
 void TankGameRender::DrawStartEnd(IGameWordContex* p, unsigned int t)
 {
 	p->GetStartPointPtr()->Render(t);
-	//p->GetStartPointPtr()->Render(t);
+	p->GetTargetPointPtr()->Render(t);
 }
 void TankGameRender::Render(IGameWordContex* p,unsigned int t)
 {

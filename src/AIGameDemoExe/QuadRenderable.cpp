@@ -35,10 +35,10 @@ void QuadMesh::InitPatchQuadVB(float terrainHeight)
 		ReportErr("Quad CreateVB Failed");
 	QuadVertex* v = 0;
 	m_pQuadVB->Lock(0, 0, (void**)&v, 0);
-	v[0] = QuadVertex(-1.0f, terrainHeight, 1.0f, 0.0f, 1.0f);
-	v[1] = QuadVertex(-1.0f, terrainHeight, -1.0f, 0.0f, 0.0f);
-	v[2] = QuadVertex(1.0f, terrainHeight, -1.0f, 1.0f, 0.0f);
-	v[3] = QuadVertex(1.0f, terrainHeight, 1.0f, 1.0f, 1.0f);
+	v[0] = QuadVertex(-1.0f, terrainHeight, -1.0f, 0.0f, 1.0f);
+	v[1] = QuadVertex(-1.0f, terrainHeight, 1.0f, 0.0f, 0.0f);
+	v[2] = QuadVertex(1.0f, terrainHeight, 1.0f, 1.0f, 0.0f);
+	v[3] = QuadVertex(1.0f, terrainHeight, -1.0f, 1.0f, 1.0f);
 	m_pQuadVB->Unlock();
 
 }

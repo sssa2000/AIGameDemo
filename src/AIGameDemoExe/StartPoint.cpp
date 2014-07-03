@@ -2,6 +2,7 @@
 #include "HippoD3d9Device.h"
 #include "Globals.h"
 #include "TankGameRender.h"
+
 StartPoint::StartPoint(float posX,float posZ)
 {
 
@@ -15,16 +16,17 @@ void StartPoint::Update(unsigned int escapeTime)
 {
 
 }
+
 void StartPoint::Render(unsigned int escapeTime)
 {
 	auto d3d9device = Globals::GetDevice()->GetDeviceD3D9();
 	D3DXMATRIX tmpMatrix = *GetWorldTransform();
 	tmpMatrix._42 = 0.1f;
 	HRESULT v = m_QuadFxhandle->SetMatrix("g_mWorld", &tmpMatrix);
-
-	d3d9device->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
-	d3d9device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
-	d3d9device->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);	//wvp matrix
+	
+	RS_HELP_OBJ(d3d9device,D3DRS_ALPHABLENDENABLE, TRUE);
+	RS_HELP_OBJ(d3d9device,D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	RS_HELP_OBJ(d3d9device,D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 
 	//wvp matrix
 	auto proj = Globals::GetRender()->GetProjMatrix();
@@ -53,8 +55,6 @@ void StartPoint::Render(unsigned int escapeTime)
 
 	m_QuadFxhandle->EndPass();
 	m_QuadFxhandle->End();
-
-	d3d9device->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
 }
 
 void StartPoint::InitRenderable(float posX,float posZ)

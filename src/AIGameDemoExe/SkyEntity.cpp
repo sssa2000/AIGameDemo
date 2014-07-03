@@ -59,11 +59,12 @@ void SkyRenderable::Render(HippoD3d9Device* pdevice, unsigned int escapeTime)
 {
 	auto device = Globals::GetDevice()->GetDeviceD3D9();
 
-	device->SetRenderState(D3DRS_ZWRITEENABLE, false);
-	device->SetRenderState(D3DRS_ZENABLE, false);
-	device->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
-	device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
-	device->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+	RS_HELP_OBJ(device,D3DRS_ALPHABLENDENABLE, TRUE);
+	RS_HELP_OBJ(device,D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	RS_HELP_OBJ(device,D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+	RS_HELP_OBJ(device,D3DRS_ZWRITEENABLE, false);
+	RS_HELP_OBJ(device,D3DRS_ZENABLE, false);
+
 	//skyboxÎ»ÖÃ
 	const D3DXVECTOR3* campos = Globals::GetCurrentCamera()->GetPos();
 	m_local_matrix._41 = campos->x;
@@ -109,9 +110,7 @@ void SkyRenderable::Render(HippoD3d9Device* pdevice, unsigned int escapeTime)
 	m_fxhandle->EndPass();
 	m_fxhandle->End();
 
-	device->SetRenderState(D3DRS_ZWRITEENABLE, true);
-	device->SetRenderState(D3DRS_ZENABLE, true);
-	device->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
+
 
 }
 void SkyRenderable::LoadFx()
