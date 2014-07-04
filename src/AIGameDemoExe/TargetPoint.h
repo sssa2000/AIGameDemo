@@ -31,8 +31,8 @@ private:
 	float m_cylinder_height;
 
 	void InitRenderable(float posX,float posZ);
-	void RenderCylider();
-	void RenderQuad();
+	void RenderCylider(unsigned int escapeTime);
+	void RenderQuad(unsigned int escapeTime);
 
 	std::unique_ptr<QuadMesh> m_quad_mesh;
 	EffHandle m_QuadFxhandle;

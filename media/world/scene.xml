@@ -137,6 +137,8 @@
 	
 	<EndPoint>
 		<Pos x="423" z="212"/>
+		<range r="50"/>
+		<cylinder h="300"/>
 	</EndPoint>
 	
 

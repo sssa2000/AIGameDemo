@@ -2,7 +2,8 @@
 #include "HippoD3d9Device.h"
 #include "Globals.h"
 #include "TankGameRender.h"
-
+#include "XModelHelpFun.h"
+#include "CameraBase.h"
 TargetPoint::TargetPoint(float posX,float posZ)
 {
 	m_target_range=100.f;
@@ -38,27 +39,32 @@ void TargetPoint::InitRenderable(float posX,float posZ)
 
 	//cylinder
 	ID3DXMesh* tmpmesh=0;
-	D3DXCreateCylinder(device,m_target_range,m_target_range,m_cylinder_height,20,20,&tmpmesh,0);
+	FillRenderableMeshWithXFile("../media/cylinder.x", device, &tmpmesh);
+
+	//D3DXCreateCylinder(device,m_target_range,m_target_range,m_cylinder_height,20,20,&tmpmesh,0);
 	m_cylinder_mesh.reset(tmpmesh,[&](ID3DXMesh* pT){pT->Release();});
 
 	D3DXMatrixIdentity(&m_cylinder_local_matrix);
-	D3DXMatrixRotationX(&m_cylinder_local_matrix,D3DXToRadian(90));
+	//D3DXMatrixRotationX(&m_cylinder_local_matrix,D3DXToRadian(90));
 
 	m_cylinder_local_matrix._41=posX;
-	m_cylinder_local_matrix._42=0.5f*m_cylinder_height;
+	m_cylinder_local_matrix._42=0;
 	m_cylinder_local_matrix._43=posZ;
 
+	m_cylinder_local_matrix._11*=m_target_range;
+	m_cylinder_local_matrix._22*=m_cylinder_height;
+	m_cylinder_local_matrix._33*=m_target_range;
 
-	m_cylinder_fxhandle = Globals::GetFxManager()->RequireEffectFormFile("../media/fx/default_fx.fx");
+	m_cylinder_fxhandle = Globals::GetFxManager()->RequireEffectFormFile("../media/fx/target_point.fx");
 	m_cylinder_fxhandle ->SetTechnique("RenderSceneWithTexture1Light");
 
 	IDirect3DTexture9* p1 = 0;
-	v = D3DXCreateTextureFromFileA(device, "../media/tower/range.tga", &p1);
+	v = D3DXCreateTextureFromFileA(device, "../media/mesh.tga", &p1);
 	m_cylinder_texture.reset(p1,[&](IDirect3DTexture9* pT){pT->Release();});
 	
 }
 
-void TargetPoint::RenderQuad()
+void TargetPoint::RenderQuad(unsigned int escapeTime)
 {
 	auto d3d9device = Globals::GetDevice()->GetDeviceD3D9();
 	RenderStateHelper::ResetRenderState(d3d9device);
@@ -102,19 +108,21 @@ void TargetPoint::RenderQuad()
 void TargetPoint::Render(unsigned int escapeTime)
 {
 
-	RenderQuad();
-	RenderCylider();
+	RenderQuad(escapeTime);
+	RenderCylider(escapeTime);
 }
 
-void TargetPoint::RenderCylider()
+void TargetPoint::RenderCylider(unsigned int escapeTime)
 {
 	auto d3d9device = Globals::GetDevice()->GetDeviceD3D9();
 
 	HRESULT v = m_cylinder_fxhandle->SetMatrix("g_mWorld", &m_cylinder_local_matrix);
 
-	//RS_HELP_OBJ(d3d9device,D3DRS_ALPHABLENDENABLE, TRUE);
-	//RS_HELP_OBJ(d3d9device,D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
-	//RS_HELP_OBJ(d3d9device,D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+	RS_HELP_OBJ(d3d9device,D3DRS_ALPHABLENDENABLE, TRUE);
+	RS_HELP_OBJ(d3d9device,D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	RS_HELP_OBJ(d3d9device,D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+	//RS_HELP_OBJ(d3d9device,D3DRS_CULLMODE, D3DCULL_NONE);
+	RS_HELP_OBJ(d3d9device,D3DRS_ZWRITEENABLE, FALSE);
 
 	//wvp matrix
 	auto proj = Globals::GetRender()->GetProjMatrix();
@@ -122,12 +130,17 @@ void TargetPoint::RenderCylider()
 	D3DXMATRIX vp = (*view)*(*proj);
 	v = m_cylinder_fxhandle->SetMatrix("g_mViewProjection", &vp);
 
-	//material
-	D3DXCOLOR vWhite = D3DXCOLOR(1, 1, 1, 1);
-	v = m_cylinder_fxhandle->SetValue("g_MaterialDiffuseColor", &vWhite, sizeof(D3DXCOLOR));
+	//time
+	float time = GetTickCount()*0.001f;
+	v = m_cylinder_fxhandle->SetValue("g_fTime", &time, sizeof(float));
+
+	//viewmatrix
+	const D3DXVECTOR3* camPos=Globals::GetCurrentCamera()->GetPos();
+	v = m_cylinder_fxhandle->SetMatrix("ViewMatrix", view);
+	v = m_cylinder_fxhandle->SetValue("g_camerapos", camPos, sizeof(D3DXVECTOR3));
 
 	//texture
-	v = m_cylinder_fxhandle->SetTexture("g_DiffuseTex", m_cylinder_texture.get());
+	v = m_cylinder_fxhandle->SetTexture("g_MeshTexture", m_cylinder_texture.get());
 
 	//range
 	float range = 20.f;
