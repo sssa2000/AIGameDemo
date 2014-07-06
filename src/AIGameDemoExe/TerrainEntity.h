@@ -80,7 +80,7 @@ public:
 	TerrainPatch* CreatePatch(float x,float y,float z,float range);
 	void ReleasePatch(TerrainPatch* p);
 	float GetTerrainHeight(float x,float z);
-	void LoadFromFile();
+	virtual void LoadFromFile();
 
 protected:
 	virtual int GetVertexNum();
@@ -107,7 +107,28 @@ protected:
 	std::vector<WORD> m_IndexData;
 	std::vector<TerrainPatch*> m_all_patch;
 };
+class TerrainBorderRenderable
+{
+public:
+	TerrainBorderRenderable();
+	~TerrainBorderRenderable();
 
+	//参数是把地形看作一个2维矩形，该矩形的四个顶点
+	void Init(float left, float top, float right, float bottom);
+	void Render(HippoD3d9Device* pdevice, unsigned int escapeTime);
+private:
+	void MakeVertexBuffer(float left, float top, float right, float bottom);
+	void MakeIndexBuffer();
+	void MakeVertexDeclaration();
+	void LoadTexture();
+	void LoadFx();
+	//border plane of terrain
+	EffHandle m_fxhandle;
+	std::shared_ptr<IDirect3DVertexBuffer9>      m_pVB;//顶点缓存
+	std::shared_ptr<IDirect3DIndexBuffer9>       m_pIB;//索引缓存
+	std::shared_ptr<IDirect3DTexture9>           m_pTextrue;
+	std::shared_ptr<IDirect3DVertexDeclaration9> m_pVertexDecl;
+};
 class TerrainRenderablePlane :TerrainRenderable
 {
 public:
@@ -122,7 +143,13 @@ protected:
 	virtual void MakeIndexBuffer();
 	virtual void LoadTexture();
 	virtual void LoadFx();
+	virtual void LoadFromFile();
+private:
+	//border plane of terrain
+	std::shared_ptr<TerrainBorderRenderable> m_border_renderable;
+
 };
+
 class TerrainEntity:public GameEntity
 {
 public:

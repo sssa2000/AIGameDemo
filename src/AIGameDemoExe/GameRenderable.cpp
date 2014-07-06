@@ -55,11 +55,11 @@ void GameRenderable::LoadFromFile(SceneObjCreateInfo& sceneobj)
 	
 	ID3DXMesh* meshptr = 0;
 	FillRenderableMeshWithXFile(sceneobj.sobj.meshFilename.c_str(), device, &meshptr);
-	m_pD3dxMesh.reset(meshptr);
+	m_pD3dxMesh.reset(meshptr, [&](ID3DXMesh* pmesh){pmesh->Release();});
 
 	IDirect3DTexture9* textureptr = 0;
 	HRESULT v = D3DXCreateTextureFromFileA(device, sceneobj.sobj.textureFilename.at(0).c_str(), &textureptr);
-	m_d3d_texture.reset(textureptr);
+	m_d3d_texture.reset(textureptr, [&](IDirect3DTexture9* ptex){ptex->Release(); });
 
 	m_fxhandle = Globals::GetFxManager()->RequireEffectFormFile(sceneobj.sobj.fxFilename.c_str());
 	m_fxhandle->SetTechnique("RenderSceneWithTexture1Light");

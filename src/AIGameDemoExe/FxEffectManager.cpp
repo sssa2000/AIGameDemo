@@ -21,8 +21,8 @@ EffHandle FxEffectManager::RequireEffectFormFile(const char* fn)
 		return itr->second;
 	}
 
-	auto eff = LoadFxFromFile(fn);
-	auto res=m_all_eff.insert(std::make_pair(std::string(fn), EffHandle(eff)));
+	ID3DXEffect* eff = LoadFxFromFile(fn);
+	auto res = m_all_eff.insert(std::make_pair(std::string(fn), EffHandle(eff, [&](ID3DXEffect* p){p->Release(); })));
 	return res.first->second;
 }
 

@@ -555,6 +555,8 @@ void TerrainRenderablePlane::Render(HippoD3d9Device* pdevice, unsigned int escap
 	}
 
 	m_fxhandle->End();
+
+	m_border_renderable->Render(pdevice, escapeTime);
 }
 void TerrainRenderablePlane::MakeVertexBuffer()
 {
@@ -566,8 +568,8 @@ void TerrainRenderablePlane::MakeVertexBuffer()
 	TerrainVertex* v = 0;
 	int idx = 0;
 	m_pVB->Lock(0, 0, (void**)&v, 0);
-	int w = 2048;
-	int h = 2048;
+	float w = 2048;
+	float h = 2048;
 	m_VertexData.push_back(TerrainVertex(0 - w / 2, 0 , 0 - h / 2, 0, 0));
 	m_VertexData.push_back(TerrainVertex(0 - w / 2, 0 , h - h / 2, 0, 1));
 	m_VertexData.push_back(TerrainVertex(w - w / 2, 0 , h - h / 2, 1, 1));
@@ -613,6 +615,16 @@ void TerrainRenderablePlane::LoadFx()
 	m_fxhandle->SetTechnique("RenderSceneWithTexture1Light");
 
 }
+
+void TerrainRenderablePlane::LoadFromFile()
+{
+	TerrainRenderable::LoadFromFile();
+	m_border_renderable.reset(new TerrainBorderRenderable());
+	float w = 2048;
+	float h = 2048;
+
+	m_border_renderable->Init(-w*0.5f, h*0.5f, w*0.5f, -h*0.5f);
+}
 int TerrainRenderablePlane::GetVertexNum()
 {
 	return 4;
@@ -625,4 +637,171 @@ int TerrainRenderablePlane::GetTriangleNum()
 int TerrainRenderablePlane::GetIndexNum()
 {
 	return 3 * GetTriangleNum();
+}
+
+TerrainBorderRenderable::TerrainBorderRenderable()
+{
+
+}
+TerrainBorderRenderable::~TerrainBorderRenderable()
+{
+
+}
+
+//参数是把地形看作一个2维矩形，该矩形的四个顶点
+void TerrainBorderRenderable::Init(float left, float top, float right, float bottom)
+{
+	LoadTexture();
+	MakeVertexBuffer(left, top, right, bottom);
+	MakeIndexBuffer();
+	MakeVertexDeclaration();
+	LoadFx();
+}
+void TerrainBorderRenderable::Render(HippoD3d9Device* pdevice, unsigned int escapeTime)
+{
+	auto device = Globals::GetDevice()->GetDeviceD3D9();
+
+	RS_HELP_OBJ(device, D3DRS_ALPHABLENDENABLE, TRUE);
+	RS_HELP_OBJ(device, D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	RS_HELP_OBJ(device, D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+	//RS_HELP_OBJ(device, D3DRS_ZWRITEENABLE, false);
+	RS_HELP_OBJ(device, D3DRS_CULLMODE, D3DCULL_CCW);
+
+	D3DXMATRIX matrix;
+	D3DXMatrixIdentity(&matrix);
+	HRESULT v = m_fxhandle->SetMatrix("g_mWorld", &matrix);
+
+	//wvp matrix
+	auto proj = Globals::GetRender()->GetProjMatrix();
+	auto view = Globals::GetRender()->GetViewMatrix();
+	D3DXMATRIX vp = (*view)*(*proj);
+	v = m_fxhandle->SetMatrix("g_mViewProjection", &vp);
+
+	//time
+	float time = GetTickCount()*0.001f;
+	v = m_fxhandle->SetValue("g_fTime", &time, sizeof(float));
+
+	//viewmatrix
+	const D3DXVECTOR3* camPos = Globals::GetCurrentCamera()->GetPos();
+	v = m_fxhandle->SetMatrix("ViewMatrix", view);
+	v = m_fxhandle->SetValue("g_camerapos", camPos, sizeof(D3DXVECTOR3));
+
+	//texture
+	v = m_fxhandle->SetTexture("g_MeshTexture", m_pTextrue.get());
+
+	//threshold
+	D3DXVECTOR4 threshold = D3DXVECTOR4(400.f, 0.95f, 0, 0);
+	v = m_fxhandle->SetValue("threshold", &threshold, sizeof(D3DXVECTOR4));
+
+	device->SetStreamSource(0, m_pVB.get(), 0, sizeof(TerrainVertex));
+	device->SetVertexDeclaration(m_pVertexDecl.get());
+	device->SetIndices(m_pIB.get());
+
+	UINT iPass, totalPasses;
+	m_fxhandle->Begin(&totalPasses, 0);
+	m_fxhandle->BeginPass(0);
+
+	device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
+		0,   // 将要绘制的索引缓冲区的起始地址
+		0, //　索引数组中最小的索引值
+		16,   // 要绘制的索引数组中的顶点数量
+		0, // 从索引数组中的第几个元素开始绘制图元
+		8); // 绘制的图元数量
+
+	m_fxhandle->EndPass();
+	m_fxhandle->End();
+}
+
+void TerrainBorderRenderable::MakeVertexBuffer(float left, float top, float right, float bottom)
+{
+	auto device = Globals::GetDevice()->GetDeviceD3D9();
+	IDirect3DVertexBuffer9* pVb = 0;
+	HRESULT res = device->CreateVertexBuffer(16 * sizeof(TerrainVertex), D3DUSAGE_WRITEONLY, 0, D3DPOOL_MANAGED, &pVb, 0);
+	if (res != S_OK)
+		ReportErr("SkyBox CreateVB Failed");
+	m_pVB.reset(pVb, [&](IDirect3DVertexBuffer9* p){p->Release(); });
+
+	TerrainVertex* v = 0;
+	float scale = 500.0f;
+	m_pVB->Lock(0, 0, (void**)&v, 0);
+	float height = (top - bottom)*0.5f;
+	float width = (right - left)*0.5f;
+
+	// positive x
+	v[0] = TerrainVertex(1.0f*right, -1.0f*height, 1.0f*width, 0.0f, 1.0f);
+	v[1] = TerrainVertex(1.0f*right, 1.0f*height, 1.0f*width, 0.0f, 0.0f);
+	v[2] = TerrainVertex(1.0f*right, 1.0f*height, -1.0f*width, 1.0f, 0.0f);
+	v[3] = TerrainVertex(1.0f*right, -1.0f*height, -1.0f*width, 1.0f, 1.0f);
+	// negative x
+	v[4] = TerrainVertex(1.0f*left, -1.0f*height, -1.0f*width, 0.0f, 1.0f);
+	v[5] = TerrainVertex(1.0f*left, 1.0f*height, -1.0f*width, 0.0f, 0.0f);
+	v[6] = TerrainVertex(1.0f*left, 1.0f*height, 1.0f*width, 1.0f, 0.0f);
+	v[7] = TerrainVertex(1.0f*left, -1.0f*height, 1.0f*width, 1.0f, 1.0f);
+
+	// positive z
+	v[8] = TerrainVertex(-1.0f*width, -1.0f*height, 1.0f*top, 0.0f, 1.0f);
+	v[9] = TerrainVertex(-1.0f*width, 1.0f*height, 1.0f*top, 0.0f, 0.0f);
+	v[10] = TerrainVertex(1.0f*width, 1.0f*height, 1.0f*top, 1.0f, 0.0f);
+	v[11] = TerrainVertex(1.0f*width, -1.0f*height, 1.0f*top, 1.0f, 1.0f);
+	// negative z
+	v[12] = TerrainVertex(1.0f*width, -1.0f*height, 1.0f*bottom, 0.0f, 1.0f);
+	v[13] = TerrainVertex(1.0f*width, 1.0f*height, 1.0f*bottom, 0.0f, 0.0f);
+	v[14] = TerrainVertex(-1.0f*width, 1.0f*height, 1.0f*bottom, 1.0f, 0.0f);
+	v[15] = TerrainVertex(-1.0f*width, -1.0f*height, 1.0f*bottom, 1.0f, 1.0f);
+	m_pVB->Unlock();
+}
+void TerrainBorderRenderable::MakeIndexBuffer()
+{
+	auto device = Globals::GetDevice()->GetDeviceD3D9();
+	IDirect3DIndexBuffer9* pIb = 0;
+	HRESULT res = device->CreateIndexBuffer(24 * sizeof(WORD), D3DUSAGE_WRITEONLY, D3DFMT_INDEX16, D3DPOOL_MANAGED, &pIb, 0);
+	if (res != S_OK)
+		ReportErr("TerrainBorder CreateIB Failed");
+	m_pIB.reset(pIb, [&](IDirect3DIndexBuffer9* p){p->Release(); });
+	WORD* g_Indices = 0;
+	m_pIB->Lock(0, 0, (void**)&g_Indices, 0);
+	// positive x
+	g_Indices[0] = 0; g_Indices[1] = 1; g_Indices[2] = 2;
+	g_Indices[3] = 0; g_Indices[4] = 2; g_Indices[5] = 3;
+	// negative x
+	g_Indices[6] = 4; g_Indices[7] = 5; g_Indices[8] = 6;
+	g_Indices[9] = 4; g_Indices[10] = 6; g_Indices[11] = 7;
+	// positive z
+	g_Indices[12] = 8; g_Indices[13] = 9; g_Indices[14] = 10;
+	g_Indices[15] = 8; g_Indices[16] = 10; g_Indices[17] = 11;
+	// negative z
+	g_Indices[18] = 12; g_Indices[19] = 13; g_Indices[20] = 14;
+	g_Indices[21] = 12; g_Indices[22] = 14; g_Indices[23] = 15;
+
+	m_pIB->Unlock();
+}
+void TerrainBorderRenderable::MakeVertexDeclaration()
+{
+	auto device = Globals::GetDevice()->GetDeviceD3D9();
+	D3DVERTEXELEMENT9 vbDecl[] =
+	{
+		{ 0, 0, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 0 },
+		{ 0, 12, D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 0 },
+
+		{ 0xFF, 0, D3DDECLTYPE_UNUSED, 0, 0, 0 }
+	};
+	IDirect3DVertexDeclaration9* pVd = 0;
+	HRESULT res = device->CreateVertexDeclaration(vbDecl, &pVd);
+	m_pVertexDecl.reset(pVd, [&](IDirect3DVertexDeclaration9* p){p->Release(); });
+
+}
+void TerrainBorderRenderable::LoadTexture()
+{
+	auto device = Globals::GetDevice()->GetDeviceD3D9();
+	IDirect3DTexture9* ptex = 0;
+	HRESULT v = D3DXCreateTextureFromFileA(device, "../media/mesh2.tga", &ptex);
+	m_pTextrue.reset(ptex, [&](IDirect3DTexture9* p){p->Release(); });
+
+}
+
+void TerrainBorderRenderable::LoadFx()
+{
+	m_fxhandle = Globals::GetFxManager()->RequireEffectFormFile("../media/fx/terrain_border.fx");
+	m_fxhandle->SetTechnique("RenderSceneWithTexture1Light");
+
 }

@@ -169,11 +169,11 @@ int ModelViewCamera::OnMouseMove(HippoMouseEvent& e)
 
 		m_xz_delta += mouseX_dis*0.03f;
 		m_y_delta += -mousey_dis*0.03f;
-		if (m_y_delta >= D3DXToRadian(75))
-			m_y_delta = D3DXToRadian(75);
+		if (m_y_delta >= D3DXToRadian(85))
+			m_y_delta = D3DXToRadian(85);
 
-		if (m_y_delta <= D3DXToRadian(15))
-			m_y_delta = D3DXToRadian(15);
+		if (m_y_delta <= D3DXToRadian(5))
+			m_y_delta = D3DXToRadian(5);
 
 		m_nLastMouseX = ptCurMousePos.x;
 		m_nLastMouseY = ptCurMousePos.y;

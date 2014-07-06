@@ -17,9 +17,9 @@ texture g_MeshTexture;              // Color texture for mesh
 float    g_fTime;                   // App's time in seconds
 float4x4 g_mWorld;                  // World matrix for object
 float4x4 g_mViewProjection;    // View * Projection matrix
-float4 g_camerapos;
+float3 g_camerapos;
 float4x4 ViewMatrix; 
-
+float4 threshold; //x=begin y=end
 //--------------------------------------------------------------------------------------
 // Texture samplers
 //--------------------------------------------------------------------------------------
@@ -42,7 +42,8 @@ struct VS_OUTPUT
 {
     float4 Position   : POSITION;   // vertex position 
     float2 TextureUV  : TEXCOORD0;  // vertex texture coords 
-	//float disTocamera: TEXCOORD1;
+	float4 PosWS: TEXCOORD1;
+	float ViewZ: TEXCOORD2;
 };
 
 
@@ -60,13 +61,15 @@ VS_OUTPUT RenderSceneVS( float4 vPos : POSITION,
     float3 vNormalWorldSpace;
     float4 vAnimatedPos = vPos;
 	float4 worldPosition = mul(vAnimatedPos, g_mWorld);
+	Output.PosWS=worldPosition.xyzw;
+
     Output.Position = mul(worldPosition, g_mViewProjection);
     
     // Transform the normal from object space to world space    
     vNormalWorldSpace = normalize(mul(vNormal, (float3x3)g_mWorld)); // normal (world space)
  
-	Output.TextureUV = vTexCoord0+float2(g_fTime,g_fTime*0.5f);
-    
+	Output.TextureUV = vTexCoord0+float2(g_fTime*0.01,g_fTime*0.005f);
+	Output.ViewZ=dot(float4(worldPosition.xyz, 1), ViewMatrix._13_23_33_43);
     return Output;    
 }
 
@@ -88,8 +91,14 @@ PS_OUTPUT RenderScenePS( VS_OUTPUT In)
 { 
     PS_OUTPUT Output;
 
-	//Output.RGBColor = float4(In.disTocamera,In.disTocamera,In.disTocamera,1);
-    Output.RGBColor = tex2D(MeshTextureSampler, In.TextureUV);
+	float4 tex=tex2D(MeshTextureSampler, In.TextureUV);
+	
+	float fakeParam = max(In.ViewZ - threshold.x, 0) * 0.01f;
+
+	float f = 1.0 / exp(fakeParam);
+	float t = lerp(1 - threshold.y, 1, f);
+	Output.RGBColor.rgb  =tex.rgb;
+	Output.RGBColor.a  =tex.a * t;
 
     return Output;
 }
@@ -102,26 +111,7 @@ technique RenderSceneWithTexture1Light
 {
     pass P0
     {          
-        VertexShader = compile vs_2_0 RenderSceneVS( 1, true );
-        PixelShader  = compile ps_2_0 RenderScenePS(  ); // trivial pixel shader (could use FF instead if desired)
+        VertexShader = compile vs_3_0 RenderSceneVS( 1, true );
+        PixelShader  = compile ps_3_0 RenderScenePS(  ); // trivial pixel shader (could use FF instead if desired)
     }
 }
-
-technique RenderSceneWithTexture2Light
-{
-    pass P0
-    {          
-        VertexShader = compile vs_2_0 RenderSceneVS( 2, true );
-        PixelShader  = compile ps_2_0 RenderScenePS(  ); // trivial pixel shader (could use FF instead if desired)
-    }
-}
-
-technique RenderSceneWithTexture3Light
-{
-    pass P0
-    {          
-        VertexShader = compile vs_2_0 RenderSceneVS( 3, true );
-        PixelShader  = compile ps_2_0 RenderScenePS(  ); // trivial pixel shader (could use FF instead if desired)
-    }
-}
-
