@@ -64,3 +64,7 @@ void GameEntity::InitRenderable(SceneObjCreateInfo& info)
 	m_pRenderable->LoadFromFile(info);
 
 }
+bool GameEntity::RayHit(HippoRay* ray,D3DXVECTOR3* insertPoint)
+{
+	return false;
+}

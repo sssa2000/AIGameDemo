@@ -24,8 +24,10 @@ public:
 
 	void OnTick(IGameWorld* p, unsigned int frameTime);
 	KeyCallback GetKeyDownCallback();
+	MouseKeyCallback GetMouseLeftDownCallback();
 protected:
 	int OnKeyDown(unsigned int);
+	int OnMouseLeftDown(HippoMouseEvent& e);
 	IGameWorld* m_pWorld;
 private:
 };
