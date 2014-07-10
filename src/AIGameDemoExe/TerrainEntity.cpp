@@ -15,7 +15,7 @@
 #include <memory>
 #include <algorithm>
 #include "IGameWordContex.h"
-
+#include "RobotEntity.h"
 
 float w = 2048;
 float h = 2048;
@@ -49,6 +49,14 @@ void TerrainEntity::Render(unsigned int escapeTime)
 	auto d3ddevice = Globals::GetDevice();
 	m_pRenderable->Render(d3ddevice, escapeTime);
 }
+
+bool TerrainEntity::RayHit(HippoRay* ray,D3DXVECTOR3* insertPoint)
+{
+	return m_pRenderable->RayHit(ray,insertPoint);
+}
+
+
+//////////////////////////////////////////////////////////////////////////
 int TerrainRenderable::GetVertexNum()
 {
 	return terrain_w*terrain_h;
@@ -480,7 +488,9 @@ void TerrainPatch::LoadFx()
 TerrainRenderablePlane::TerrainRenderablePlane(GameEntity* parent):
 TerrainRenderable(parent)
 {
-
+	D3DXVECTOR3 org000(0,0,0);
+	D3DXVECTOR3 nrm(0,1,0);
+	D3DXPlaneFromPointNormal(&m_phy_shape,&org000,&nrm);
 }
 TerrainRenderablePlane::~TerrainRenderablePlane()
 {
@@ -558,6 +568,14 @@ void TerrainRenderablePlane::Render(HippoD3d9Device* pdevice, unsigned int escap
 	m_fxhandle->End();
 
 	m_border_renderable->Render(pdevice, escapeTime);
+}
+
+bool TerrainRenderablePlane::RayHit(HippoRay* ray,D3DXVECTOR3* insertPoint)
+{
+	auto end=ray->GetEndPoint(100000.f);
+	auto* insertpoint=D3DXPlaneIntersectLine(insertPoint,&m_phy_shape,&ray->m_OrgPos,&end);
+
+	return insertpoint!=0;
 }
 void TerrainRenderablePlane::MakeVertexBuffer()
 {
@@ -802,3 +820,4 @@ void TerrainBorderRenderable::LoadFx()
 	m_fxhandle->SetTechnique("RenderSceneWithTexture1Light");
 
 }
+

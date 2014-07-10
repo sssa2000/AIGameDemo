@@ -20,7 +20,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v100</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -140,6 +140,7 @@
     <ClInclude Include="HippoAppBase\HippoDxAppBase.h" />
     <ClInclude Include="HippoAppBase\HippoWindow.h" />
     <ClInclude Include="HippoAppBase\Win32MsgUtil.h" />
+    <ClInclude Include="HippoRay.h" />
     <ClInclude Include="IGameWordContex.h" />
     <ClInclude Include="QuadRenderable.h" />
     <ClInclude Include="RobotEntity.h" />
@@ -204,6 +205,7 @@
     <ClCompile Include="HippoAppBase\HippoDxAppBase.cpp" />
     <ClCompile Include="HippoAppBase\HippoWindow.cpp" />
     <ClCompile Include="HippoAppBase\Win32MsgUtil.cpp" />
+    <ClCompile Include="HippoRay.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="QuadRenderable.cpp" />
     <ClCompile Include="RobotEntity.cpp" />

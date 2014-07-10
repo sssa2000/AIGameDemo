@@ -46,6 +46,7 @@ public:
 	void BeginRender();
 	void EndRender();
 	void SetViewport(int w,int h);
+	
 	IDirect3DDevice9* GetDeviceD3D9();
 	float GetFPS();
 	void ProcessDeviceLost();

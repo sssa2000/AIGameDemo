@@ -81,7 +81,7 @@ public:
 	void ReleasePatch(TerrainPatch* p);
 	float GetTerrainHeight(float x,float z);
 	virtual void LoadFromFile();
-
+	virtual bool RayHit(HippoRay* ray,D3DXVECTOR3* insertPoint){return false;}
 protected:
 	virtual int GetVertexNum();
 	virtual int GetTriangleNum();
@@ -135,6 +135,7 @@ public:
 	TerrainRenderablePlane(GameEntity* parent);
 	~TerrainRenderablePlane();
 	void Render(HippoD3d9Device* pdevice, unsigned int escapeTime);
+	virtual bool RayHit(HippoRay* ray,D3DXVECTOR3* insertPoint);
 protected:
 	virtual int GetVertexNum();
 	virtual int GetTriangleNum();
@@ -145,6 +146,7 @@ protected:
 	virtual void LoadFx();
 	virtual void LoadFromFile();
 private:
+	D3DXPLANE m_phy_shape;
 	//border plane of terrain
 	std::shared_ptr<TerrainBorderRenderable> m_border_renderable;
 
@@ -159,6 +161,8 @@ public:
 	void Render(unsigned int escapeTime);
 	TerrainRenderable* GetRenderable(){ return m_pRenderable; }
 	float GetHeight(float x,float z){return m_pRenderable->GetTerrainHeight(x,z);}
+	virtual bool RayHit(HippoRay* ray,D3DXVECTOR3* insertPoint);
+
 protected:
 	TerrainRenderable* m_pRenderable;
 private:

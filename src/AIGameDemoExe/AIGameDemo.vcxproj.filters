@@ -264,6 +264,9 @@
     <ClInclude Include="TargetPoint.h">
       <Filter>Game\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="HippoRay.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -450,6 +453,9 @@
       <Filter>Game\Scene</Filter>
     </ClCompile>
     <ClCompile Include="TargetPoint.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="HippoRay.cpp">
       <Filter>Game\Scene</Filter>
     </ClCompile>
   </ItemGroup>

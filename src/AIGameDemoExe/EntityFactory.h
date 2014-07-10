@@ -41,13 +41,13 @@ struct SceneObjCreateInfo
 
 class StartPoint;
 class TargetPoint;
-
+class RobotEntity;
 class EntityFactory
 {
 public:
 	void Release(){delete this;}
 	EntityFactory(HippoD3d9Device* pDevice);
-	GameEntity* CreateTank();
+	RobotEntity* CreateTank();
 	TowerEntity* CreateTower(TowerCreateInfo& towerInfo);
 	TerrainEntity* CreateFloor();
 	GameEntity* CreateSceneObj(SceneObjCreateInfo& objinfo);

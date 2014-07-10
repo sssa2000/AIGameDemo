@@ -12,6 +12,7 @@
 #pragma once
 #include <map>
 #include <d3dx9.h>
+#include "HippoRay.h"
 class IGameWordContex;
 class HippoD3d9Device;
 struct ID3DXEffect;
@@ -27,6 +28,7 @@ public:
 	void Render(IGameWordContex* p,unsigned int escapeTime);
 	const D3DXMATRIX* GetProjMatrix(){ return &m_proj_matrix; }
 	const D3DXMATRIX* GetViewMatrix();
+	HippoRay GetMouseRay(int mouseX,int mouseY);
 protected:
 	void Update(unsigned int escapeTime);
 	void DrawTanks(IGameWordContex* p, unsigned int t);

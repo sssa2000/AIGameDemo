@@ -113,7 +113,8 @@ public:
 
 		GameKeyBoardControl* contorl=Globals::GetKeyBoardControl();
 		m_pWnd->RegisterKeyDownEvent(contorl->GetKeyDownCallback());
-		
+		m_pWnd->RegisterMouseLeftDownEvent(contorl->GetMouseLeftDownCallback());
+
 		KeyCallback kcb = bind(&TankGameExe::OnKeyDown, this, std::placeholders::_1);
 		m_pWnd->RegisterKeyDownEvent(kcb);
 

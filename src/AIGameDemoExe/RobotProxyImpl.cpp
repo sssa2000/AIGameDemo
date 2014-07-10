@@ -9,6 +9,12 @@ D3DXVECTOR2 RobotProxyImpl::GetPos()
 {
 	return D3DXVECTOR2(m_Parent->GetPos()->x, m_Parent->GetPos()->z);
 }
+
+void RobotProxyImpl::SetTargetPos(float x,float y)
+{
+
+	m_Parent->SetTargetPos(D3DXVECTOR3(x,0,y));
+}
 void RobotProxyImpl::SetVelocity(float v)
 {
 	m_Parent->SetVelocity(v);
