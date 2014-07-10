@@ -15,7 +15,7 @@
 #include <memory>
 #include <algorithm>
 #include "IGameWordContex.h"
-
+#include "RobotEntity.h"
 
 
 int terrain_w = 64; //x方向的顶点数量

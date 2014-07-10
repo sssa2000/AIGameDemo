@@ -20,6 +20,11 @@ typedef std::vector<GameRenderable*> GameRenderableCon;
 
 class TerrainPatch;
 
+enum RobotState
+{
+	RS_STOP,
+	RS_RUN
+};
 class RobotEntity:public GameEntity
 {
 public:
@@ -36,6 +41,8 @@ public:
 	virtual float GetDirection();
 	GameRenderableCon* GetRenderable(){ return &m_pRenderables; }
 	void Render(unsigned int escapeTime);
+	void SetTargetPos(const D3DXVECTOR3& v);
+	
 protected:
 	void ReCalcBoundingVol();
 	void InitRenderable();
@@ -44,6 +51,8 @@ protected:
 	std::tr1::shared_ptr<RobotProxyImpl> m_pLogic;
 	D3DXVECTOR3 m_YawPitchRoll;
 	float m_v;
+	std::vector<D3DXVECTOR3> m_Targets;
+	RobotState m_state;
 
 private:
 };

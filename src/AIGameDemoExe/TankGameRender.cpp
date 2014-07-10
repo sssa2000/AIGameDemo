@@ -116,7 +116,7 @@ HippoRay TankGameRender::GetMouseRay(int mouse_x,int mouse_y)
 	D3DXMATRIX matInverse;
 	D3DXMatrixInverse(&matInverse,0,&m_view_matrix);
 
-	D3DXVECTOR3 dir;
+	//D3DXVECTOR3 dir;
 	//D3DXVec3TransformCoord(&dir,&rayPos,&matInverse);
 	//D3DXVec4Normalize(&dir4,&dir4);
 	//D3DXVECTOR3 dir(dir4.x,dir4.y,dir4.z);
