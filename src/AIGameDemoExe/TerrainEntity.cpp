@@ -17,7 +17,8 @@
 #include "IGameWordContex.h"
 
 
-
+float w = 2048;
+float h = 2048;
 int terrain_w = 64; //x方向的顶点数量
 int terrain_h = 64;
 float gHeightMapScale=22.f;
@@ -568,8 +569,7 @@ void TerrainRenderablePlane::MakeVertexBuffer()
 	TerrainVertex* v = 0;
 	int idx = 0;
 	m_pVB->Lock(0, 0, (void**)&v, 0);
-	float w = 2048;
-	float h = 2048;
+
 	m_VertexData.push_back(TerrainVertex(0 - w / 2, 0 , 0 - h / 2, 0, 0));
 	m_VertexData.push_back(TerrainVertex(0 - w / 2, 0 , h - h / 2, 0, 1));
 	m_VertexData.push_back(TerrainVertex(w - w / 2, 0 , h - h / 2, 1, 1));
@@ -620,9 +620,6 @@ void TerrainRenderablePlane::LoadFromFile()
 {
 	TerrainRenderable::LoadFromFile();
 	m_border_renderable.reset(new TerrainBorderRenderable());
-	float w = 2048;
-	float h = 2048;
-
 	m_border_renderable->Init(-w*0.5f, h*0.5f, w*0.5f, -h*0.5f);
 }
 int TerrainRenderablePlane::GetVertexNum()
@@ -690,7 +687,7 @@ void TerrainBorderRenderable::Render(HippoD3d9Device* pdevice, unsigned int esca
 	v = m_fxhandle->SetTexture("g_MeshTexture", m_pTextrue.get());
 
 	//threshold
-	D3DXVECTOR4 threshold = D3DXVECTOR4(400.f, 0.95f, 0, 0);
+	D3DXVECTOR4 threshold = D3DXVECTOR4(800.f, 0.99f, 0, 0);
 	v = m_fxhandle->SetValue("threshold", &threshold, sizeof(D3DXVECTOR4));
 
 	device->SetStreamSource(0, m_pVB.get(), 0, sizeof(TerrainVertex));
