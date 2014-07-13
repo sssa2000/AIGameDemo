@@ -16,7 +16,7 @@ TargetPoint::~TargetPoint()
 
 void TargetPoint::Update(unsigned int escapeTime)
 {
-
+	GameEntity::Update(escapeTime);
 }
 
 void TargetPoint::InitRenderable(float posX,float posZ)

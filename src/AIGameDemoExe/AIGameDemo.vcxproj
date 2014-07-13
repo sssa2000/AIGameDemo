@@ -20,7 +20,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v100</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -128,6 +128,7 @@
     <ClInclude Include="Camera\FollowCamera.h" />
     <ClInclude Include="Camera\FPSCamera.h" />
     <ClInclude Include="Camera\ModelViewCamera.h" />
+    <ClInclude Include="D3dxMathExtension.h" />
     <ClInclude Include="D3D\HippoD3d9Device.h" />
     <ClInclude Include="D3D\HippoD3DxModel.h" />
     <ClInclude Include="EntityFactory.h" />
@@ -193,6 +194,7 @@
     <ClCompile Include="Camera\FollowCamera.cpp" />
     <ClCompile Include="Camera\FPSCamera.cpp" />
     <ClCompile Include="Camera\ModelViewCamera.cpp" />
+    <ClCompile Include="D3dxMathExtension.cpp" />
     <ClCompile Include="D3D\HippoD3d9Device.cpp" />
     <ClCompile Include="D3D\HippoD3DxModel.cpp" />
     <ClCompile Include="EntityFactory.cpp" />

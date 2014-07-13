@@ -14,7 +14,7 @@ StartPoint::~StartPoint()
 
 void StartPoint::Update(unsigned int escapeTime)
 {
-
+	GameEntity::Update(escapeTime);
 }
 
 void StartPoint::Render(unsigned int escapeTime)

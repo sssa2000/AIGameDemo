@@ -47,7 +47,6 @@ protected:
 	void ReCalcBoundingVol();
 	void InitRenderable();
 	GameRenderableCon m_pRenderables;
-	virtual void UpdateMatrixFromVar();
 	std::tr1::shared_ptr<RobotProxyImpl> m_pLogic;
 	D3DXVECTOR3 m_YawPitchRoll;
 	float m_v;

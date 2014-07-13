@@ -267,6 +267,9 @@
     <ClInclude Include="HippoRay.h">
       <Filter>Game\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="D3dxMathExtension.h">
+      <Filter>Game\FrameWork\utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -457,6 +460,9 @@
     </ClCompile>
     <ClCompile Include="HippoRay.cpp">
       <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="D3dxMathExtension.cpp">
+      <Filter>Game\FrameWork\utility</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

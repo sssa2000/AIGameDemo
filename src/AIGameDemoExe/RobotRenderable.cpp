@@ -73,13 +73,15 @@ void RobotRenderable::CalcPos(unsigned int escapet)
 	//D3DXMatrixMultiply(&m_RobotRenderableMatrix, &m_local_matrix, m_parent->GetWorldTransform());
 	const float fly_height = 15.f;
 	m_RobotRenderableMatrix = *m1;
-	//DWORD t=timeGetTime();
-	//m_RobotRenderableMatrix._42 = fly_height  + 1.6f*sin(0.1f*D3DXToRadian(t));
-	//
-	////scale it
-	//m_RobotRenderableMatrix._11 *= 0.1f;
-	//m_RobotRenderableMatrix._22 *= 0.1f;
-	//m_RobotRenderableMatrix._33 *= 0.1f;
+	
+	//D3DXMATRIX sclmat;
+	//D3DXMatrixScaling(&sclmat,0.1f,0.1f,0.1f);
+	//D3DXMatrixMultiply(&m_RobotRenderableMatrix,&m_RobotRenderableMatrix,&sclmat);
+
+
+	DWORD t=timeGetTime();
+	m_RobotRenderableMatrix._42 = fly_height  + 1.6f*sin(0.1f*D3DXToRadian(t));
+
 }
 
 void RobotRenderable::LoadFromFile()
