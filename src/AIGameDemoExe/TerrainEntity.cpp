@@ -55,7 +55,10 @@ bool TerrainEntity::RayHit(HippoRay* ray,D3DXVECTOR3* insertPoint)
 	return m_pRenderable->RayHit(ray,insertPoint);
 }
 
-
+const D3DXPLANE* TerrainEntity::GetBorderPlane(BORDER_DEFINE d)
+{
+	return m_pRenderable->GetBorderPlane(d);
+}
 //////////////////////////////////////////////////////////////////////////
 int TerrainRenderable::GetVertexNum()
 {
@@ -634,6 +637,7 @@ void TerrainRenderablePlane::LoadFx()
 
 }
 
+
 void TerrainRenderablePlane::LoadFromFile()
 {
 	TerrainRenderable::LoadFromFile();
@@ -747,22 +751,29 @@ void TerrainBorderRenderable::MakeVertexBuffer(float left, float top, float righ
 	v[1] = TerrainVertex(1.0f*right, 1.0f*height, 1.0f*width, 0.0f, 0.0f);
 	v[2] = TerrainVertex(1.0f*right, 1.0f*height, -1.0f*width, 1.0f, 0.0f);
 	v[3] = TerrainVertex(1.0f*right, -1.0f*height, -1.0f*width, 1.0f, 1.0f);
+	D3DXPlaneFromPoints(&m_border_planes[POSITIVE_X], &v[0].m_pos, &v[1].m_pos, &v[2].m_pos);
+
 	// negative x
 	v[4] = TerrainVertex(1.0f*left, -1.0f*height, -1.0f*width, 0.0f, 1.0f);
 	v[5] = TerrainVertex(1.0f*left, 1.0f*height, -1.0f*width, 0.0f, 0.0f);
 	v[6] = TerrainVertex(1.0f*left, 1.0f*height, 1.0f*width, 1.0f, 0.0f);
 	v[7] = TerrainVertex(1.0f*left, -1.0f*height, 1.0f*width, 1.0f, 1.0f);
+	D3DXPlaneFromPoints(&m_border_planes[NEGATIVE_X], &v[4].m_pos, &v[5].m_pos, &v[6].m_pos);
 
 	// positive z
 	v[8] = TerrainVertex(-1.0f*width, -1.0f*height, 1.0f*top, 0.0f, 1.0f);
 	v[9] = TerrainVertex(-1.0f*width, 1.0f*height, 1.0f*top, 0.0f, 0.0f);
 	v[10] = TerrainVertex(1.0f*width, 1.0f*height, 1.0f*top, 1.0f, 0.0f);
 	v[11] = TerrainVertex(1.0f*width, -1.0f*height, 1.0f*top, 1.0f, 1.0f);
+	D3DXPlaneFromPoints(&m_border_planes[POSITIVE_Y], &v[8].m_pos, &v[9].m_pos, &v[10].m_pos);
+
 	// negative z
 	v[12] = TerrainVertex(1.0f*width, -1.0f*height, 1.0f*bottom, 0.0f, 1.0f);
 	v[13] = TerrainVertex(1.0f*width, 1.0f*height, 1.0f*bottom, 0.0f, 0.0f);
 	v[14] = TerrainVertex(-1.0f*width, 1.0f*height, 1.0f*bottom, 1.0f, 0.0f);
 	v[15] = TerrainVertex(-1.0f*width, -1.0f*height, 1.0f*bottom, 1.0f, 1.0f);
+	D3DXPlaneFromPoints(&m_border_planes[NEGATIVE_Y], &v[12].m_pos, &v[13].m_pos, &v[14].m_pos);
+
 	m_pVB->Unlock();
 }
 void TerrainBorderRenderable::MakeIndexBuffer()

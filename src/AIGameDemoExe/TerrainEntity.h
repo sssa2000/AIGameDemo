@@ -20,6 +20,16 @@
 class HippoD3d9Device;
 class TerrainRenderable;
 
+enum BORDER_DEFINE
+{
+	POSITIVE_X=0,
+	NEGATIVE_X,
+
+	POSITIVE_Y,
+	NEGATIVE_Y,
+
+	BD_END
+};
 struct TerrainVertex
 {
 	TerrainVertex(float x, float y, float z, float u, float v)
@@ -82,6 +92,7 @@ public:
 	float GetTerrainHeight(float x,float z);
 	virtual void LoadFromFile();
 	virtual bool RayHit(HippoRay* ray,D3DXVECTOR3* insertPoint){return false;}
+	virtual const D3DXPLANE* GetBorderPlane(BORDER_DEFINE d){ return 0; }
 protected:
 	virtual int GetVertexNum();
 	virtual int GetTriangleNum();
@@ -116,6 +127,7 @@ public:
 	//参数是把地形看作一个2维矩形，该矩形的四个顶点
 	void Init(float left, float top, float right, float bottom);
 	void Render(HippoD3d9Device* pdevice, unsigned int escapeTime);
+	const D3DXPLANE* GetBorderPlane(BORDER_DEFINE d){ return &m_border_planes[d]; }
 private:
 	void MakeVertexBuffer(float left, float top, float right, float bottom);
 	void MakeIndexBuffer();
@@ -128,6 +140,7 @@ private:
 	std::shared_ptr<IDirect3DIndexBuffer9>       m_pIB;//索引缓存
 	std::shared_ptr<IDirect3DTexture9>           m_pTextrue;
 	std::shared_ptr<IDirect3DVertexDeclaration9> m_pVertexDecl;
+	D3DXPLANE m_border_planes[BD_END];
 };
 class TerrainRenderablePlane :TerrainRenderable
 {
@@ -136,6 +149,7 @@ public:
 	~TerrainRenderablePlane();
 	void Render(HippoD3d9Device* pdevice, unsigned int escapeTime);
 	virtual bool RayHit(HippoRay* ray,D3DXVECTOR3* insertPoint);
+	const D3DXPLANE* GetBorderPlane(BORDER_DEFINE d){ return m_border_renderable->GetBorderPlane(d); }
 protected:
 	virtual int GetVertexNum();
 	virtual int GetTriangleNum();
@@ -163,6 +177,7 @@ public:
 	float GetHeight(float x,float z){return m_pRenderable->GetTerrainHeight(x,z);}
 	virtual bool RayHit(HippoRay* ray,D3DXVECTOR3* insertPoint);
 
+	const D3DXPLANE* GetBorderPlane(BORDER_DEFINE d);
 protected:
 	TerrainRenderable* m_pRenderable;
 private:
