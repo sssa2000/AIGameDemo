@@ -69,3 +69,17 @@ D3DXQUATERNION GetRotationTo(const D3DXVECTOR3& From,const D3DXVECTOR3& To)
 	}
 	return res;
 }
+
+//射线和平面相交，返回值first表示是否相交，second表示如果相交的话 交点在哪
+std::pair<bool,float> RayPlaneIntersection(const D3DXVECTOR3& start,const D3DXVECTOR3& dir,const D3DXVECTOR3& planeNormal,float d)
+{
+	std::pair<bool,float> res(false,0);
+	float d1 = D3DXVec3Dot(&planeNormal,&start)+d;
+	float d2 = D3DXVec3Dot(&planeNormal,&dir);
+	if ( d2 == 0.0f ) 
+		return res;
+
+	res.first=true;
+	res.second = -( d1 / d2 );
+	return res;
+}

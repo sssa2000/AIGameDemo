@@ -49,4 +49,5 @@ public:
 	virtual TerrainEntityPtr GetFloor() = 0;
 	virtual SkyDoomEntityPtr GetSky() = 0;
 	virtual void NotifyGameOver() = 0;
+	virtual bool OnPlayerMove(RobotEntity* p,const D3DXVECTOR3& dir,float v,DWORD timeInMs) = 0;
 };
