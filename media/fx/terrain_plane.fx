@@ -37,6 +37,9 @@ sampler_state
     MipFilter = LINEAR;
     MinFilter = LINEAR;
     MagFilter = LINEAR;
+	AddressU = Wrap;
+    AddressV = Wrap;
+
 };
 
 
@@ -67,7 +70,7 @@ VS_OUTPUT RenderSceneVS( float4 vPos : POSITION,
 	float4 worldPosition = mul(vPos, g_mWorld);
     Output.Position = mul(worldPosition, g_mViewProjection);
     Output.WorldPos=worldPosition;
-	Output.TextureUV=vTexCoord0;
+	Output.TextureUV=float2(vPos.x/64,vPos.z/64);//vTexCoord0;
     return Output;    
 }
 
@@ -109,8 +112,8 @@ PS_OUTPUT RenderScenePS( VS_OUTPUT In)
 		res.xyz=float3(0.3,0.3,0.3);
 	}
 
-	
-   Output.RGBColor = float4(res,1);//tex2D(MeshTextureSampler, In.TextureUV)* In.Diffuse;
+   float4 tex=float4(0,tex2D(MeshTextureSampler, In.TextureUV).r,0,1);
+   Output.RGBColor = float4(res,1)+tex*0.03f;
 
     return Output;
 }
