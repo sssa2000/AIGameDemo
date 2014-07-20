@@ -33,19 +33,7 @@
 		</transform>
 	</Tower>
 	
-	<SceneObj>
-		<model>
-			<mesh filename="../media/sceneobj/ct_cactus_auv.x" />
-			<texture filename="../media/sceneobj/ct_cactus_auv.tga"/>
-			<fx filename="../media/fx/default_fx.fx"/>
-		</model>
-		
-		<transform>
-			<pos x="22" y="0" z="123"/>
-			<rotate yaw="0" roll="0" pitch="0"/> 
-			<scale x="1" y="1" z="1"/>
-		</transform>
-	</SceneObj>
+
 	
 	<SceneObj>
 		<model>
@@ -55,7 +43,7 @@
 		</model>
 		
 		<transform>
-			<pos x="212" y="0" z="83"/>
+			<pos x="812" y="0" z="-183"/>
 			<rotate yaw="0" roll="0" pitch="0"/> 
 			<scale x="1" y="1" z="1"/>
 		</transform>
@@ -69,7 +57,7 @@
 		</model>
 		
 		<transform>
-			<pos x="262" y="0" z="183"/>
+			<pos x="-662" y="0" z="183"/>
 			<rotate yaw="0" roll="0" pitch="0"/> 
 			<scale x="1" y="1" z="1"/>
 		</transform>
@@ -83,7 +71,7 @@
 		</model>
 		
 		<transform>
-			<pos x="242" y="0" z="283"/>
+			<pos x="-242" y="0" z="-283"/>
 			<rotate yaw="0" roll="0" pitch="0"/> 
 			<scale x="1" y="1" z="1"/>
 		</transform>
@@ -106,7 +94,7 @@
 	<SceneObj>
 		<model>
 			<mesh filename="../media/sceneobj/ct_pine1_auv.x" />
-			<texture filename="../media/sceneobj/ct_pine1_auv.tga"/>
+			<texture filename="../media/sceneobj/ct_pine1_auv.dds"/>
 			<fx filename="../media/fx/default_fx.fx"/>
 		</model>
 		
@@ -120,19 +108,152 @@
 	<SceneObj>
 		<model>
 			<mesh filename="../media/sceneobj/ct_pine1_auv2.x" />
-			<texture filename="../media/sceneobj/ct_pine1_auv.tga"/>
+			<texture filename="../media/sceneobj/ct_pine1_auv.dds"/>
 			<fx filename="../media/fx/default_fx.fx"/>
 		</model>
 		
 		<transform>
-			<pos x="582" y="0" z="493"/>
+			<pos x="502" y="0" z="493"/>
 			<rotate yaw="0" roll="0" pitch="0"/> 
 			<scale x="1" y="1" z="1"/>
 		</transform>
 	</SceneObj>
+	<SceneObj>
+		<model>
+			<mesh filename="../media/sceneobj/ct_pine1_auv2.x" />
+			<texture filename="../media/sceneobj/ct_pine1_auv.dds"/>
+			<fx filename="../media/fx/default_fx.fx"/>
+		</model>
+		
+		<transform>
+			<pos x="555" y="0" z="443"/>
+			<rotate yaw="0" roll="0" pitch="0"/> 
+			<scale x="2" y="2" z="2"/>
+		</transform>
+	</SceneObj>
 
+	<SceneObj>
+		<model>
+			<mesh filename="../media/sceneobj/ct_pine1_auv2.x" />
+			<texture filename="../media/sceneobj/ct_pine1_auv.dds"/>
+			<fx filename="../media/fx/default_fx.fx"/>
+		</model>
+		
+		<transform>
+			<pos x="595" y="0" z="413"/>
+			<rotate yaw="30" roll="0" pitch="0"/> 
+			<scale x="2" y="2.3" z="2"/>
+		</transform>
+	</SceneObj>
 
+	<SceneObj>
+		<model>
+			<mesh filename="../media/sceneobj/ct_pine1_auv2.x" />
+			<texture filename="../media/sceneobj/ct_pine1_auv.dds"/>
+			<fx filename="../media/fx/default_fx.fx"/>
+		</model>
+		
+		<transform>
+			<pos x="695" y="0" z="-213"/>
+			<rotate yaw="60" roll="0" pitch="0"/> 
+			<scale x="2" y="2.3" z="2"/>
+		</transform>
+	</SceneObj>
 	
+	<SceneObj>
+		<model>
+			<mesh filename="../media/sceneobj/bad/badvgatlingturret_wreck_tex.x" />
+			<texture filename="../media/sceneobj/bad/badvgatlingturret_wreck_tex.png"/>
+			<fx filename="../media/fx/default_fx.fx"/>
+		</model>
+		
+		<transform>
+			<pos x="582" y="0" z="-93"/>
+			<rotate yaw="0" roll="0" pitch="0"/> 
+			<scale x="1" y="1" z="1"/>
+		</transform>
+	</SceneObj>
+	
+	<SceneObj>
+		<model>
+			<mesh filename="../media/sceneobj/bad/badvlandturret_wreck_tex.x" />
+			<texture filename="../media/sceneobj/bad/badvlandturret_wreck_tex.png"/>
+			<fx filename="../media/fx/default_fx.fx"/>
+		</model>
+		
+		<transform>
+			<pos x="322" y="0" z="-193"/>
+			<rotate yaw="0" roll="0" pitch="0"/> 
+			<scale x="1" y="1" z="1"/>
+		</transform>
+	</SceneObj>	
+
+	<SceneObj>
+		<model>
+			<mesh filename="../media/sceneobj/bad/bheavyassaulttank_wreck_tex.x" />
+			<texture filename="../media/sceneobj/bad/bheavyassaulttank_wreck_tex.png"/>
+			<fx filename="../media/fx/default_fx.fx"/>
+		</model>
+		
+		<transform>
+			<pos x="622" y="0" z="-393"/>
+			<rotate yaw="0" roll="0" pitch="0"/> 
+			<scale x="1" y="1" z="1"/>
+		</transform>
+	</SceneObj>		
+	<SceneObj>
+		<model>
+			<mesh filename="../media/sceneobj/pnfieldlaser.x" />
+			<texture filename="../media/sceneobj/pnfieldlaser.dds"/>
+			<fx filename="../media/fx/default_fx.fx"/>
+		</model>
+		
+		<transform>
+			<pos x="22" y="0" z="-393"/>
+			<rotate yaw="0" roll="0" pitch="0"/> 
+			<scale x="1" y="1" z="1"/>
+		</transform>
+	</SceneObj>	
+	<SceneObj>
+		<model>
+			<mesh filename="../media/sceneobj/ct_rock2.x" />
+			<texture filename="../media/sceneobj/ct_rock2.dds"/>
+			<fx filename="../media/fx/default_fx.fx"/>
+		</model>
+		
+		<transform>
+			<pos x="-522" y="0" z="193"/>
+			<rotate yaw="0" roll="0" pitch="0"/> 
+			<scale x="1" y="1" z="1"/>
+		</transform>
+	</SceneObj>
+	<SceneObj>
+		<model>
+			<mesh filename="../media/sceneobj/ct_rock2.x" />
+			<texture filename="../media/sceneobj/ct_rock2.dds"/>
+			<fx filename="../media/fx/default_fx.fx"/>
+		</model>
+		
+		<transform>
+			<pos x="472" y="0" z="43"/>
+			<rotate yaw="0" roll="0" pitch="0"/> 
+			<scale x="1" y="1" z="1"/>
+		</transform>
+	</SceneObj>	
+	
+	<SceneObj>
+		<model>
+			<mesh filename="../media/sceneobj/ct_rock1.x" />
+			<texture filename="../media/sceneobj/ct_rock1.dds"/>
+			<fx filename="../media/fx/default_fx.fx"/>
+		</model>
+		
+		<transform>
+			<pos x="-472" y="0" z="-543"/>
+			<rotate yaw="0" roll="0" pitch="0"/> 
+			<scale x="1" y="1" z="1"/>
+		</transform>
+	</SceneObj>		
 	<StartPoint>
 		<Pos x="-523" z="-112"/>
 	</StartPoint>

@@ -11,7 +11,7 @@
 GameRenderable::GameRenderable(GameEntity* parent)
 {
 	m_parent = parent;
-	
+	m_nNumMesh = 0;
 }
 GameRenderable::~GameRenderable()
 {
@@ -42,7 +42,11 @@ void GameRenderable::Render(HippoD3d9Device* pdevice, unsigned int t)
 	for (iPass = 0; iPass < totalPasses; iPass++)
 	{
 		m_fxhandle->BeginPass(iPass);
-		m_pD3dxMesh->DrawSubset(0);
+		for (DWORD id = 0; id < m_nNumMesh;++id)
+		{
+			m_pD3dxMesh->DrawSubset(id);
+		}
+		
 		m_fxhandle->EndPass();
 	}
 
@@ -54,7 +58,7 @@ void GameRenderable::LoadFromFile(SceneObjCreateInfo& sceneobj)
 	auto device = Globals::GetDevice()->GetDeviceD3D9();
 	
 	ID3DXMesh* meshptr = 0;
-	FillRenderableMeshWithXFile(sceneobj.sobj.meshFilename.c_str(), device, &meshptr);
+	m_nNumMesh = FillRenderableMeshWithXFile(sceneobj.sobj.meshFilename.c_str(), device, &meshptr);
 	m_pD3dxMesh.reset(meshptr, [&](ID3DXMesh* pmesh){pmesh->Release();});
 
 	IDirect3DTexture9* textureptr = 0;

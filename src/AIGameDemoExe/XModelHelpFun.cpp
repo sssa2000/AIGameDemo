@@ -39,7 +39,7 @@ bool ComputeBoundingBox(ID3DXMesh* mesh, sBoundingBox* box)
 	return true;
 }
 
-void FillRenderableMeshWithXFile(const char* fn, IDirect3DDevice9* device, ID3DXMesh** pMesh)
+DWORD FillRenderableMeshWithXFile(const char* fn, IDirect3DDevice9* device, ID3DXMesh** pMesh)
 {
 	LPD3DXBUFFER pD3DXMtrlBuffer;
 	DWORD g_dwNumMaterials;
@@ -48,5 +48,5 @@ void FillRenderableMeshWithXFile(const char* fn, IDirect3DDevice9* device, ID3DX
 		&pD3DXMtrlBuffer, NULL, &g_dwNumMaterials,
 		pMesh);
 
-	
+	return g_dwNumMaterials;
 }
